@@ -4,11 +4,17 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import { FC } from "react";
 import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
 import { object, string, TypeOf } from "zod";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
+import { AppDispatch } from "../../store/store";
 import FormInput from "../../components/FormInput";
-import { LinkItem } from "../login/Login";
+import { register } from "../../slices/login.slice";
+import authService from "../../services/auth.service";
+import { LinkItem, mainColor, secondaryColor, textColor, borderRadius } from "../login/Login";
+import { useAppSelector } from "../../store/hooks";
 
-import image from "./assets/image.jpg";
+import image from "./assets/image.gif";
 
 
 // ? SignUp Schema with Zod
@@ -29,6 +35,10 @@ const signupSchema = object({
 type ISignUp = TypeOf<typeof signupSchema>;
 
 const SignupPage: FC = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+
+
   // ? Default Values
   const defaultValues: ISignUp = {
     name: "",
@@ -44,15 +54,19 @@ const SignupPage: FC = () => {
   });
 
   // ? Form Handler
-  const onSubmitHandler: SubmitHandler<ISignUp> = (values: ISignUp) => {
-    console.log(values);
+  const onSubmitHandler: SubmitHandler<ISignUp> = async (values: ISignUp) => {
+    const {name, email, password, passwordConfirm} = values;
+
+    dispatch(register(await authService.register(name, email, password, passwordConfirm)))
+
+    navigate("/");
   };
 
   // ? Returned JSX
   return (
     <Container
       maxWidth={false}
-      sx={{ height: "100vh", backgroundColor: { xs: "#fff", md: "#f4f4f4" } }}
+      sx={{ height: "100vh", backgroundColor: { xs: mainColor, md: secondaryColor } }}
     >
       <Grid
         container
@@ -62,7 +76,7 @@ const SignupPage: FC = () => {
       >
         <Grid
           item
-          sx={{ maxWidth: "70rem", width: "100%", backgroundColor: "#fff" }}
+          sx={{ maxWidth: "70rem", width: "100%", backgroundColor: mainColor, borderRadius }}
         >
           <Grid
             container
@@ -70,6 +84,7 @@ const SignupPage: FC = () => {
               boxShadow: { sm: "0 0 5px #ddd" },
               py: "6rem",
               px: "1rem",
+              borderRadius
             }}
           >
             <FormProvider {...methods}>

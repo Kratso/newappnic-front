@@ -19,8 +19,14 @@ import { literal, object, string, TypeOf } from "zod";
 
 import FormInput from "../../components/FormInput";
 
+import image from "./assets/image.gif";
+import { login } from "../../slices/login.slice";
+import authService from "../../services/auth.service";
 
-import image from "./assets/image.jpg";
+export const mainColor = "rgba(255,211,232,0.8)";
+export const secondaryColor = "#141414";
+export const textColor = "#001011";
+export const borderRadius = "60px";
 
 // ? Styled React Route Dom Link Component
 export const LinkItem = styled(Link)`
@@ -29,26 +35,6 @@ export const LinkItem = styled(Link)`
   &:hover {
     text-decoration: underline;
     color: #5ea1b6;
-  }
-`;
-
-// ? Styled Material UI Link Component
-export const OauthMuiLink = styled(MuiLink)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #f5f6f7;
-  border-radius: 1;
-  padding: 0.6rem 0;
-  column-gap: 1rem;
-  text-decoration: none;
-  color: #393e45;
-  font-weight: 500;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #fff;
-    box-shadow: 0 1px 13px 0 rgb(0 0 0 / 15%);
   }
 `;
 
@@ -74,41 +60,50 @@ const LoginPage: FC = () => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-  }, [dispatch]);
-
   // ? The object returned from useForm Hook
   const methods = useForm<ILogin>({
     resolver: zodResolver(loginSchema),
     defaultValues,
-  });
+  }); 
 
   // ? Submit Handler
-  const onSubmitHandler: SubmitHandler<ILogin> = (values: ILogin) => {
+  const onSubmitHandler: SubmitHandler<ILogin> = async (values: ILogin) => {
     console.log(values);
+    const { email, password } = values;
+
+    dispatch(login(await authService.login(email, password)));
   };
 
   // ? JSX to be rendered
   return (
     <Container
       maxWidth={false}
-      sx={{ height: "100vh", backgroundColor: { xs: "#fff", md: "#f4f4f4" } }}
+      sx={{
+        height: "100vh",
+        backgroundColor: { xs: mainColor, md: secondaryColor },
+      }}
     >
       <Grid
         container
         justifyContent="center"
         alignItems="center"
-        sx={{ width: "100%", height: "100%" }}
+        sx={{ width: "100%", height: "100%", borderRadius: "20px" }}
       >
         <Grid
           item
-          sx={{ maxWidth: "70rem", width: "100%", backgroundColor: "#fff" }}
+          sx={{
+            maxWidth: "70rem",
+            width: "100%",
+            backgroundColor: mainColor,
+            borderRadius: borderRadius,
+          }}
         >
           <FormProvider {...methods}>
             <Grid
               container
               sx={{
                 boxShadow: { sm: "0 0 5px #ddd" },
+                borderRadius: borderRadius,
                 py: "6rem",
                 px: "1rem",
               }}
@@ -141,7 +136,11 @@ const LoginPage: FC = () => {
                     <Typography
                       variant="h6"
                       component="h1"
-                      sx={{ textAlign: "center", mb: "1.5rem" }}
+                      sx={{
+                        textAlign: "center",
+                        mb: "1.5rem",
+                        color: textColor,
+                      }}
                     >
                       Log into your account
                     </Typography>
@@ -176,7 +175,7 @@ const LoginPage: FC = () => {
                           sx={{
                             fontSize: "0.8rem",
                             fontWeight: 400,
-                            color: "#5e5b5d",
+                            color: "#001011",
                           }}
                         >
                           Trust this device

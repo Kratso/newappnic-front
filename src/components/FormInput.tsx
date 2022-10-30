@@ -6,7 +6,7 @@ import { styled } from "@mui/material/styles";
 // ? Styled Material UI TextField Component
 const CssTextField = styled(TextField)({
   "& label.Mui-focused": {
-    color: "#5e5b5d",
+    color: "#001011",
     fontWeight: 400,
   },
   "& .MuiInputBase-input": {
@@ -55,7 +55,7 @@ const FormInput: FC<FormInputProps> = ({ name, ...otherProps }) => {
         <CssTextField
           {...field}
           {...otherProps}
-          variant="outlined"
+          variant="standard"
           sx={{ mb: "1.5rem" }}
           error={!!errors[name]}
           helperText={

@@ -12,6 +12,9 @@ code {
     monospace;
 }
 
+.root {
+  background-color: #4B2E39;
+}
 
 html,
 body {
