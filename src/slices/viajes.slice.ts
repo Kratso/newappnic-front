@@ -8,6 +8,7 @@ export interface Viaje {
   _id?: string,
   start_date: Date,
   end_date: Date,
+  destino: string,
   conceptos: Concepto[],
   participantes: string[]
 }
@@ -46,10 +47,11 @@ const viajesSlice = createSlice({
       })      
     },
     viajeUpdate(state, action) {
-        const {_id, conceptos, participantes, start_date, end_date} = action.payload
+        const {_id, destino, conceptos, participantes, start_date, end_date} = action.payload
         const viaje = state.viajes.find(viaje => viaje._id === _id)
 
         if(viaje) {
+            viaje.destino = destino
             viaje.conceptos = conceptos;
             viaje.participantes = participantes;
             viaje.start_date = start_date;
@@ -105,6 +107,7 @@ export const fetchViajes = createAsyncThunk('viajes/fetchViajes', async () => {
 
 export const createViaje = createAsyncThunk('viajes/createViaje', async (viaje: Viaje) => {
     await viajesService.createViaje(viaje);
+    return (await viajesService.fetchViajes()).data as Viaje[];
 })
 
 export const updateViaje = createAsyncThunk('viajes/updateViaje', async (viaje: Viaje) => {

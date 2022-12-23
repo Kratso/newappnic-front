@@ -6,7 +6,9 @@ const API_URL = "http://localhost:8000/api/viajes/"
 
 const viajesService = {
     createViaje(viaje: Viaje) {
-
+        return {
+            data: []
+        }
     },
     updateViaje(viaje: Viaje) {
 
