@@ -35,19 +35,23 @@ const viajesSlice = createSlice({
   name: "viajes",
   initialState,
   reducers: {
+    setViajes(state, action) {
+      state.viajes = action.payload;
+    },
     viajeCreate(state, action) {
-      viajesService.createViaje(action.payload);
-      state.viajes.push(action.payload);
+      const {viaje, access_token} = action.payload
+      viajesService.createViaje(viaje, access_token);
+      state.viajes.push(viaje);
     },
     viajeDelete(state, action) {
-      const { id } = action.payload;
-      viajesService.deleteViaje(id);
+      const { id, access_token } = action.payload;
+      viajesService.deleteViaje(id, access_token);
       state.viajes.forEach( (item, index) => {
         if(item._id === id) state.viajes.splice(index, 1);
       })      
     },
     viajeUpdate(state, action) {
-        const {_id, destino, conceptos, participantes, start_date, end_date} = action.payload
+        const {_id, destino, conceptos, participantes, start_date, end_date} = action.payload.viaje;
         const viaje = state.viajes.find(viaje => viaje._id === _id)
 
         if(viaje) {
@@ -91,7 +95,7 @@ const viajesSlice = createSlice({
   }
 });
 
-export const { viajeCreate, viajeDelete, viajeUpdate } = viajesSlice.actions;
+export const { viajeCreate, viajeDelete, viajeUpdate, setViajes } = viajesSlice.actions;
 
 export default viajesSlice.reducer;
 
@@ -100,20 +104,20 @@ export const selectAllViajes: (state: RootState)=>Viaje[] = (state: RootState) =
 export const selectPostById = (state: RootState, viajeId: string) =>
   state.viajes.viajes.find((viaje: Viaje) => viaje._id === viajeId);
 
-export const fetchViajes = createAsyncThunk('viajes/fetchViajes', async () => {
-  const response = await viajesService.fetchViajes();
+export const fetchViajes = createAsyncThunk('viajes/fetchViajes', async (access_token: string) => {
+  const response = await viajesService.fetchViajes(access_token);
   return response.data as Viaje[]
 })
 
-export const createViaje = createAsyncThunk('viajes/createViaje', async (viaje: Viaje) => {
-    await viajesService.createViaje(viaje);
-    return (await viajesService.fetchViajes()).data as Viaje[];
+export const createViaje = createAsyncThunk<Viaje[],{viaje:Viaje, access_token:string},{}>('viajes/createViaje', async ({viaje, access_token}) => {
+    await viajesService.createViaje(viaje, access_token);
+    return (await viajesService.fetchViajes(access_token)).data as Viaje[];
 })
 
-export const updateViaje = createAsyncThunk('viajes/updateViaje', async (viaje: Viaje) => {
-    await viajesService.updateViaje(viaje);
+export const updateViaje = createAsyncThunk<void,{viaje:Viaje, access_token:string},{}>('viajes/updateViaje', async ({viaje, access_token}) => {
+    await viajesService.updateViaje(viaje, access_token);
 })
 
-export const deleteViaje = createAsyncThunk('viajes/deleteViaje', async (_id: string) => {
-    await viajesService.deleteViaje(_id);
+export const deleteViaje = createAsyncThunk<void,{_id: string, access_token:string}, {} >('viajes/deleteViaje', async ({_id, access_token}) => {
+    await viajesService.deleteViaje(_id, access_token);
 })

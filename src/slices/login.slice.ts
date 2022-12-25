@@ -5,9 +5,10 @@ import { RootState } from "../store/store";
 import AuthService from "../services/auth.service";
 
 export interface User {
-  id: number;
+  id: string;
   name?: string;
   email?: string;
+  role?: string;
   access_token?: string;
   password?: string;
 }
@@ -27,7 +28,10 @@ const initialState: UserState = {
     status: "idle",
     error: null,
   },
-  user: null,
+  user: {
+    id: "",
+    access_token: localStorage.getItem("TOKEN") ?? undefined,
+  },
 };
 
 const userData = createSlice({
@@ -46,6 +50,14 @@ const userData = createSlice({
       state = initialState;
     },
     register(state, action) {},
+    setUser(state, action) {
+      const { user, status } = action.payload;
+
+      state.status = status;
+      if (user) {
+        state.user = user;
+      }
+    },
   },
   extraReducers(builder) {
     builder
@@ -55,7 +67,7 @@ const userData = createSlice({
       .addCase(loginMiddle.fulfilled, (state, action) => {
         state.status.status = "OK";
         // Add the user to the state
-        
+
         state.user = action.payload.user;
       })
       .addCase(loginMiddle.rejected, (state, action) => {
@@ -65,12 +77,20 @@ const userData = createSlice({
   },
 });
 
-export const { login, logout, register } = userData.actions;
+export const { login, logout, register, setUser } = userData.actions;
 
 export default userData.reducer;
 
 export const selectUser: (state: RootState) => UserState = (state: RootState) =>
   state.userData;
+
+export const selectAccessToken = (state: RootState) =>
+  state.userData.user?.access_token;
+
+export const selectIsLogged = (state: RootState) =>
+  state.userData.user?.access_token && state.userData.status.status === "OK";
+
+export const selectUserRole = (state: RootState) => state.userData.user?.role;
 
 export const loginMiddle = createAsyncThunk<
   UserState,
@@ -84,6 +104,6 @@ export const registerMiddle = createAsyncThunk<
   any,
   { username: string; email: string; password: string; passwordConfirm: string }
 >("userData/register", async (authData) => {
-    const {username, email, password, passwordConfirm} = authData
-    return await AuthService.register(username, email, password, passwordConfirm);
+  const { username, email, password, passwordConfirm } = authData;
+  return await AuthService.register(username, email, password, passwordConfirm);
 });

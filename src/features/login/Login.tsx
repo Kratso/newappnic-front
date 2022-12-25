@@ -68,7 +68,6 @@ const LoginPage: FC = () => {
 
   // ? Submit Handler
   const onSubmitHandler: SubmitHandler<ILogin> = async (values: ILogin) => {
-    console.log(values);
     const { email, password } = values;
 
     dispatch(login(await authService.login(email, password)));

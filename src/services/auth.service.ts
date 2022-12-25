@@ -1,8 +1,9 @@
 import axios from "axios";
 import { UserState } from "../slices/login.slice";
+import { BASE_URL } from "../constants";
 
-const AUTH_URL = "http://localhost:8000/api/auth/";
-const USER_URL = "http://localhost:8000/api/users/"
+const AUTH_URL = `${BASE_URL}/api/auth/`;
+const USER_URL = `${BASE_URL}/api/users/`;
 
 class AuthService {
   async login(email: string, password: string) {
@@ -13,7 +14,9 @@ class AuthService {
           password,
         })
       ).data;
-  
+      
+      localStorage.setItem("TOKEN", access_token.access_token)
+
       const user = (await axios.get(USER_URL+'me',{
         headers: {
           "Authorization": 'Bearer ' + access_token.access_token,
@@ -24,6 +27,8 @@ class AuthService {
       user.status = {
         status: 'OK'
       }
+      user.user.access_token = access_token.access_token;
+
       return user;
     }catch(error) {
       return {
