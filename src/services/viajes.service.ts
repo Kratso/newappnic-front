@@ -6,16 +6,36 @@ import { BASE_URL } from "../constants";
 const API_URL = `${BASE_URL}/api/viaje/`
 
 const viajesService = {
-    createViaje(viaje: Viaje, access_token: string) {
-        return {
-            data: []
+    async createViaje(viaje: Viaje, access_token: string) {
+        try{
+            const viajeCreated = (await axios.post(`${API_URL}/create`, JSON.stringify(viaje), {
+                headers: {  "Authorization": 'Bearer ' + access_token, }    
+            })).data;    
+            console.log("VIAJE CREATED ::>>>>>",viajeCreated);
+            return {
+                viaje: viajeCreated.data.viaje
+            }
+        } catch(err: any ) {
+            console.log("ERROR ::>>>>>",err)
         }
     },
-    updateViaje(viaje: Viaje, access_token: string) {
-
+    async updateViaje(viaje: Viaje, access_token: string) {
+        try {
+            const viajeUpdated = (await axios.post(`${API_URL}/update`, JSON.stringify(viaje), {
+                headers: {  "Authorization": 'Bearer ' + access_token, }    
+            })).data;
+            console.log("VIAJE UPDATED ::>>>>>",viajeUpdated);
+            return {
+                viaje: viajeUpdated.data.viaje
+            }
+        } catch(err: any ) {
+            console.log("ERROR ::>>>>>",err)
+        }
     },
-    deleteViaje(_id: string, access_token: string) {
-
+    async deleteViaje(_id: string, access_token: string) {
+        return await axios.post(`${API_URL}/delete/`, {_id} , {
+            headers: {  "Authorization": 'Bearer ' + access_token, }    
+        })
     },
     async fetchViajes(access_token: string){
         try{
@@ -31,10 +51,9 @@ const viajesService = {
                 viajes: viajes.data.viajes
             }
         } catch(err: any ){
-
-        }
-        return {
-            data: []
+            return {
+                data: []
+            }
         }
     }
 }

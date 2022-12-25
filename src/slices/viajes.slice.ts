@@ -3,6 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import viajesService from "../services/viajes.service";
 import { RootState } from "../store/store";
 import { Concepto } from "./concepto.slice";
+import { User } from "./login.slice";
 
 export interface Viaje {
   _id?: string,
@@ -10,7 +11,7 @@ export interface Viaje {
   end_date: Date,
   destino: string,
   conceptos: Concepto[],
-  participantes: string[]
+  participantes: string[] | User[],
 }
 
 export interface ViajeStatus {
@@ -101,7 +102,7 @@ export default viajesSlice.reducer;
 
 export const selectAllViajes: (state: RootState)=>Viaje[] = (state: RootState) => state.viajes.viajes;
 
-export const selectPostById = (state: RootState, viajeId: string) =>
+export const selectViajeById = (state: RootState, viajeId: string) =>
   state.viajes.viajes.find((viaje: Viaje) => viaje._id === viajeId);
 
 export const fetchViajes = createAsyncThunk('viajes/fetchViajes', async (access_token: string) => {

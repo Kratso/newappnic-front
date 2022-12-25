@@ -1,27 +1,17 @@
-import { Card, Typography } from "@mui/material";
+import { Button, Card, CardActions, Typography } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { Viaje } from "../../../../slices/viajes.slice";
 import CardContent from "@mui/material/CardContent";
 import {Unstable_DateField as DateField} from "@mui/x-date-pickers/DateField";
+import { useNavigate } from "react-router-dom";
 
 interface IProps {
   viaje: Viaje;
 }
 
 export const ViajeItem: React.FC<IProps> = ({ viaje }) => {
-  const { start_date, end_date, destino, participantes, conceptos } = viaje;
-  console.log(
-    "A",
-    start_date,
-    "B",
-    end_date,
-    "C",
-    destino,
-    "D",
-    participantes,
-    "E",
-    conceptos
-  );
+  const { _id, start_date, end_date, destino, participantes } = viaje;
+  const navigate = useNavigate();
   return (
     <Card variant="outlined" sx={{ minWidth: 275 }}>
       <CardContent>
@@ -42,6 +32,9 @@ export const ViajeItem: React.FC<IProps> = ({ viaje }) => {
                 {(participante as any).name}
           </Typography>
         )})}
+        <CardActions>
+          <Button onClick={()=>navigate(`/viaje/${_id}`)} size="small">Más Detalles</Button>
+        </CardActions>
       </CardContent>
     </Card>
   );

@@ -28,6 +28,21 @@ class UserService {
               } as UserState
         }
     }
+    async getAllUsers(access_token: string) {
+      try {
+        const users = (await axios.get(`${USER_URL}/`,{
+          headers: { "Authorization": 'Bearer ' + access_token }
+          })).data;
+
+        return users;
+      } catch(err: any) {
+        return {
+          status: {
+            status: 'KO'
+          },  
+        } as UserState
+      }
+    }
 }
 
 export default new UserService();

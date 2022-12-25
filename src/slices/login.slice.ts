@@ -5,7 +5,7 @@ import { RootState } from "../store/store";
 import AuthService from "../services/auth.service";
 
 export interface User {
-  id: string;
+  _id: string;
   name?: string;
   email?: string;
   role?: string;
@@ -29,7 +29,7 @@ const initialState: UserState = {
     error: null,
   },
   user: {
-    id: "",
+    _id: "",
     access_token: localStorage.getItem("TOKEN") ?? undefined,
   },
 };

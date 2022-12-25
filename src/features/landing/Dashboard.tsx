@@ -31,6 +31,10 @@ import { setViajes } from "../../slices/viajes.slice";
 import { selectAccessToken } from "../../slices/login.slice";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { RootState } from "../../store/store";
+import ViajeDetail from "../../components/ViajeDetail/ViajeDetail";
+import userService from "../../services/user.service";
+import { setUsers } from "../../slices/users.slice";
+import ConceptoForm from "../../components/ConceptoForm/ConceptoForm";
 
 const drawerWidth: number = 240;
 
@@ -162,6 +166,8 @@ function DashboardContent() {
             <Grid container spacing={3}>
               <Routes>
                 <Route path="/" element={<ViajesList />} />
+                <Route path="/viaje/:_id" element={<ViajeDetail />} />
+                <Route path="/concepto" element={<ConceptoForm />} />
               </Routes>
             </Grid>
           </Container>
@@ -181,8 +187,11 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       const viajes = await viajesService.fetchViajes(accessToken ?? "");
+      const usuarios = await userService.getAllUsers(accessToken ?? "");
       console.log("DISPATCH VIAJES :_>>>>>>>", viajes);
+      console.log("DISPATCH USUARIOS :_>>>>>>>", usuarios);
       dispatch(setViajes(viajes.viajes));
+      dispatch(setUsers(usuarios.data.users));
     };
     fetchData();
   }, [accessToken]);
