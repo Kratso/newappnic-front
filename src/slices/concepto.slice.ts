@@ -10,7 +10,7 @@ export type Concepto = {
     titulo: string,
     fecha: Date,
     pagador: string | User,
-    participantes: string[] | User[],
+    participantes: string[] | {usuario: User, pagado: boolean}[],
     unidades: number,
     precio: number,
     viaje: string | Viaje,
@@ -146,7 +146,7 @@ export const createConcepto = createAsyncThunk<Concepto, {concepto: Concepto, ac
 });
 
 export const deleteConcepto = createAsyncThunk<string, {id: string, access_token: string}, {}>("conceptos/deleteConcepto", async ({id, access_token}) => {
-    const deletedConcepto = (await conceptosService.deleteConcepto(id, access_token) as any)?.data;
+    (await conceptosService.deleteConcepto(id, access_token) as any)
     return id;
 });
 

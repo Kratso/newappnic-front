@@ -42,6 +42,7 @@ const viajesSlice = createSlice({
     viajeCreate(state, action) {
       const {viaje, access_token} = action.payload
       viajesService.createViaje(viaje, access_token);
+
       state.viajes.push(viaje);
     },
     viajeDelete(state, action) {
@@ -66,10 +67,10 @@ const viajesSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-        .addCase(fetchViajes.pending, (state, actions) => {
+        .addCase(fetchViajesMiddle.pending, (state, actions) => {
           state.status.status = 'loading';
         })
-        .addCase(fetchViajes.fulfilled, (state, action) => {
+        .addCase(fetchViajesMiddle.fulfilled, (state, action) => {
           state.status.status = 'OK'
           // Add any fetched posts to the array
           state.viajes = state.viajes.concat(action.payload)
@@ -77,20 +78,20 @@ const viajesSlice = createSlice({
           //filter duplicate ids
           state.viajes = state.viajes.filter((v,i,a)=>a.findIndex(v2=>(v2._id===v._id))===i)
         })
-        .addCase(fetchViajes.rejected, (state, action) => {
+        .addCase(fetchViajesMiddle.rejected, (state, action) => {
           state.status.status = 'KO'
           state.status.error = action.error.message
-        }).addCase(createViaje.pending, (state, actions) => {
+        }).addCase(createViajeMiddle.pending, (state, actions) => {
             state.status.status = 'loading'
-        }).addCase(createViaje.fulfilled, (state, actions) => {
+        }).addCase(createViajeMiddle.fulfilled, (state, actions) => {
             state.status.status = 'OK';
-        }).addCase(updateViaje.pending, (state, actions) => {
+        }).addCase(updateViajeMiddle.pending, (state, actions) => {
             state.status.status = 'loading'
-        }).addCase(updateViaje.fulfilled, (state, actions) => {
+        }).addCase(updateViajeMiddle.fulfilled, (state, actions) => {
             state.status.status = 'OK';
-        }).addCase(deleteViaje.pending, (state, actions) => {
+        }).addCase(deleteViajeMiddle.pending, (state, actions) => {
             state.status.status = 'loading'
-        }).addCase(deleteViaje.fulfilled, (state, actions) => {
+        }).addCase(deleteViajeMiddle.fulfilled, (state, actions) => {
             state.status.status = 'OK';
         })
   }
@@ -105,20 +106,21 @@ export const selectAllViajes: (state: RootState)=>Viaje[] = (state: RootState) =
 export const selectViajeById = (state: RootState, viajeId: string) =>
   state.viajes.viajes.find((viaje: Viaje) => viaje._id === viajeId);
 
-export const fetchViajes = createAsyncThunk('viajes/fetchViajes', async (access_token: string) => {
+export const fetchViajesMiddle = createAsyncThunk('viajes/fetchViajes', async (access_token: string) => {
   const response = await viajesService.fetchViajes(access_token);
   return response.data as Viaje[]
 })
 
-export const createViaje = createAsyncThunk<Viaje[],{viaje:Viaje, access_token:string},{}>('viajes/createViaje', async ({viaje, access_token}) => {
+export const createViajeMiddle = createAsyncThunk<Viaje[],{viaje:Viaje, access_token:string},{}>('viajes/createViaje', async ({viaje, access_token}) => {
     await viajesService.createViaje(viaje, access_token);
+    const viajes = ((await viajesService.fetchViajes(access_token)).data as any)?.data?.viajes;
     return (await viajesService.fetchViajes(access_token)).data as Viaje[];
 })
 
-export const updateViaje = createAsyncThunk<void,{viaje:Viaje, access_token:string},{}>('viajes/updateViaje', async ({viaje, access_token}) => {
+export const updateViajeMiddle = createAsyncThunk<void,{viaje:Viaje, access_token:string},{}>('viajes/updateViaje', async ({viaje, access_token}) => {
     await viajesService.updateViaje(viaje, access_token);
 })
 
-export const deleteViaje = createAsyncThunk<void,{_id: string, access_token:string}, {} >('viajes/deleteViaje', async ({_id, access_token}) => {
+export const deleteViajeMiddle = createAsyncThunk<void,{_id: string, access_token:string}, {} >('viajes/deleteViaje', async ({_id, access_token}) => {
     await viajesService.deleteViaje(_id, access_token);
 })

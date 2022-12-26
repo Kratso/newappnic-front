@@ -23,7 +23,7 @@ import { AppDispatch, RootState } from "../../store/store";
 import { selectAccessToken, User } from "../../slices/login.slice";
 import { createConcepto } from "../../slices/concepto.slice";
 
-const ConceptoForm = () => {
+const ConceptoForm = ({propsTitulo='', propsFecha=new Date(), propsPagador='', propsUnidad=0, propsPrecio=0,propsViaje='',propsChecked=[]}) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const viajes = useSelector((state: RootState) => selectAllViajes(state));
@@ -31,14 +31,14 @@ const ConceptoForm = () => {
     selectAccessToken(state)
   );
 
-  const [titulo, setTitulo] = React.useState("");
-  const [fecha, setFecha] = React.useState(new Date());
-  const [pagador, setPagador] = React.useState("");
-  const [unidades, setUnidades] = React.useState(0);
-  const [precio, setPrecio] = React.useState(0);
-  const [viaje, setViaje] = React.useState("");
+  const [titulo, setTitulo] = React.useState(propsTitulo);
+  const [fecha, setFecha] = React.useState(propsFecha);
+  const [pagador, setPagador] = React.useState(propsPagador);
+  const [unidades, setUnidades] = React.useState(propsUnidad);
+  const [precio, setPrecio] = React.useState(propsPrecio);
+  const [viaje, setViaje] = React.useState( propsViaje);
   const [participantes, setParticipantes] = React.useState<[]>([]);
-  const [checked, setChecked] = React.useState<any[]>([]);
+  const [checked, setChecked] = React.useState<any[]>(propsChecked);
 
   const handleCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
     let updatedList: any[] = [...checked];
@@ -53,9 +53,6 @@ const ConceptoForm = () => {
   const [selectedViaje, setSelectedViaje] = React.useState<any>({
     participantes: [],
   });
-
-  console.log("VIAJES :::::", viajes);
-  console.log("SELECTED VIAJE :::::", selectedViaje);
 
   useEffect(() => {
     const selectedViaje = viajes.filter((v) => v._id === viaje)[0];
@@ -85,10 +82,8 @@ const ConceptoForm = () => {
       viaje,
       participantes: participantes.filter((usuario: any) =>
         checked.includes(usuario._id)
-      ),
+      ).map((usuario: any) => ({usuario, pagado: false})),
     };
-
-    console.log("CONCEPTO :::::", concepto);
 
     dispatch(createConcepto({concepto, access_token: access_token ?? ''}));
   };

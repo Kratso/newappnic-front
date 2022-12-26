@@ -45,7 +45,6 @@ class AuthService {
   }
 
   async register(username: string, email: string, password: string, confirmPassword: string) {
-      console.log(username, email, password, confirmPassword)
     return axios.post(AUTH_URL + "register", {
       name: username,
       email,

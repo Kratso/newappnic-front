@@ -8,10 +8,9 @@ const API_URL = `${BASE_URL}/api/viaje/`
 const viajesService = {
     async createViaje(viaje: Viaje, access_token: string) {
         try{
-            const viajeCreated = (await axios.post(`${API_URL}/create`, JSON.stringify(viaje), {
+            const viajeCreated = (await axios.post(`${API_URL}/create`, viaje, {
                 headers: {  "Authorization": 'Bearer ' + access_token, }    
             })).data;    
-            console.log("VIAJE CREATED ::>>>>>",viajeCreated);
             return {
                 viaje: viajeCreated.data.viaje
             }
@@ -21,10 +20,9 @@ const viajesService = {
     },
     async updateViaje(viaje: Viaje, access_token: string) {
         try {
-            const viajeUpdated = (await axios.post(`${API_URL}/update`, JSON.stringify(viaje), {
+            const viajeUpdated = (await axios.post(`${API_URL}/update`, viaje, {
                 headers: {  "Authorization": 'Bearer ' + access_token, }    
             })).data;
-            console.log("VIAJE UPDATED ::>>>>>",viajeUpdated);
             return {
                 viaje: viajeUpdated.data.viaje
             }
@@ -44,8 +42,6 @@ const viajesService = {
                     "Authorization": 'Bearer ' + access_token,
                   }
             })).data
-            console.log("VIAJES ::>>>>>",viajes)
-
             
             return {
                 viajes: viajes.data.viajes

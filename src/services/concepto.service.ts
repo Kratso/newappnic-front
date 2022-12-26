@@ -7,12 +7,11 @@ const API_URL = `${BASE_URL}/api/conceptos/`;
 
 const conceptosService = {
     async createConcepto(concepto: Concepto, access_token: string) {
-        console.log("CONCEPTO ::>>>>>",concepto, JSON.stringify(concepto));
         try{
             const conceptoCreated = (await axios.post(`${API_URL}/create`, concepto, {
                 headers: {  "Authorization": 'Bearer ' + access_token, }    
             })).data;    
-            console.log("CONCEPTO CREATED ::>>>>>",conceptoCreated);
+
             return {
                 concepto: conceptoCreated.data.concepto
             }
@@ -28,7 +27,7 @@ const conceptosService = {
             const conceptoUpdated = (await axios.post(`${API_URL}/update`, concepto, {
                 headers: {  "Authorization": 'Bearer ' + access_token, }    
             })).data;
-            console.log("CONCEPTO UPDATED ::>>>>>",conceptoUpdated);
+
             return {
                 concepto: conceptoUpdated.data.concepto
             }
@@ -48,7 +47,7 @@ const conceptosService = {
                     "Authorization": 'Bearer ' + access_token,
                   }
             })).data
-            console.log("CONCEPTOS ::>>>>>",conceptos)
+
             return {
                 conceptos: conceptos.data.conceptos
             };

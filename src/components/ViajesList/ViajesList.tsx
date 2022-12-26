@@ -7,23 +7,24 @@ import { selectAllViajes } from "../../slices/viajes.slice";
 import { RootState } from "../../store/store";
 import { Container, Stack } from "@mui/system";
 import { ViajeItem } from "./components/ViajeItem/ViajeItem";
+import ViajeFormDialog from "../ViajeFormDialog/ViajeFormDialog";
 
 const ViajesList = () => {
   const viajes = useSelector((state: RootState) => selectAllViajes(state));
   const userRole = useSelector((state: RootState) => selectUserRole(state));
-  
+
   return (
     <Container>
-        <Stack>
-            {
-                viajes.map((viaje, i) => (
-                    <ViajeItem key={i} viaje={viaje} />
-                ))
-            }
-        </Stack>
-      { userRole !== 'admin' ? <Fab color="primary" aria-label="add">
-        <Add />
-      </Fab> : <></>}
+      <Stack spacing={2}>
+        {viajes.map((viaje, i) => (
+          <ViajeItem key={i} viaje={viaje} />
+        ))}
+      </Stack>
+      {userRole !== "admin" ? (
+        <ViajeFormDialog fab={true} />
+      ) : (
+        <></>
+      )}
     </Container>
   );
 };

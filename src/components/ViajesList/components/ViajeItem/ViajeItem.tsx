@@ -4,13 +4,14 @@ import { Viaje } from "../../../../slices/viajes.slice";
 import CardContent from "@mui/material/CardContent";
 import {Unstable_DateField as DateField} from "@mui/x-date-pickers/DateField";
 import { useNavigate } from "react-router-dom";
+import ViajeFormDialog from "../../../ViajeFormDialog/ViajeFormDialog";
 
 interface IProps {
   viaje: Viaje;
 }
 
 export const ViajeItem: React.FC<IProps> = ({ viaje }) => {
-  const { _id, start_date, end_date, destino, participantes } = viaje;
+  const { _id, start_date, end_date, destino, participantes, conceptos } = viaje;
   const navigate = useNavigate();
   return (
     <Card variant="outlined" sx={{ minWidth: 275 }}>
@@ -26,7 +27,6 @@ export const ViajeItem: React.FC<IProps> = ({ viaje }) => {
           Participantes
         </Typography>
         {participantes.map(participante => {
-            console.log("::::::::::::::", participante)
             return (
             <Typography variant="body2">
                 {(participante as any).name}
@@ -34,6 +34,7 @@ export const ViajeItem: React.FC<IProps> = ({ viaje }) => {
         )})}
         <CardActions>
           <Button onClick={()=>navigate(`/viaje/${_id}`)} size="small">Más Detalles</Button>
+          <ViajeFormDialog variant="text" update _id={_id ?? ''} destinoProps={destino} startDateProps={start_date} endDateProps={end_date} participantesProps={participantes} conceptos={conceptos} />
         </CardActions>
       </CardContent>
     </Card>
