@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.3](https://github.com/Kratso/newappnic-front/compare/v0.1.2...v0.1.3) (2022-12-26)
+
+
+### Features
+
+* added detail page for viaje ([51ad692](https://github.com/Kratso/newappnic-front/commit/51ad6920d04f360ae00fbad5d34e9e85f7bdb310))
+* now all page redirect to login when logged off ([372c065](https://github.com/Kratso/newappnic-front/commit/372c065488a5cd199bee63eaf81dbd9465c10119))
+
 ### [0.1.2](https://github.com/Kratso/newappnic-front/compare/v0.1.1...v0.1.2) (2022-12-26)
 
 
