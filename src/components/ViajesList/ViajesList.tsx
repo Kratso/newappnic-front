@@ -7,7 +7,7 @@ import { selectAllViajes } from "../../slices/viajes.slice";
 import { RootState } from "../../store/store";
 import { Container, Stack } from "@mui/system";
 import { ViajeItem } from "./components/ViajeItem/ViajeItem";
-import ViajeFormDialog from "../ViajeFormDialog/ViajeFormDialog";
+import ViajeFormDialog from "../ViajeForm/ViajeForm";
 
 const ViajesList = () => {
   const viajes = useSelector((state: RootState) => selectAllViajes(state));

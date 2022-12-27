@@ -4,7 +4,7 @@ import { Viaje } from "../../../../slices/viajes.slice";
 import CardContent from "@mui/material/CardContent";
 import {Unstable_DateField as DateField} from "@mui/x-date-pickers/DateField";
 import { useNavigate } from "react-router-dom";
-import ViajeFormDialog from "../../../ViajeFormDialog/ViajeFormDialog";
+import ViajeFormDialog from "../../../ViajeForm/ViajeForm";
 
 interface IProps {
   viaje: Viaje;

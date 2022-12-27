@@ -188,7 +188,7 @@ export default function Dashboard() {
     const fetchData = async () => {
       const viajes = await viajesService.fetchViajes(accessToken ?? "");
       const usuarios = await userService.getAllUsers(accessToken ?? "");
-      console.log(":::::::::::::::::::::", viajes)
+
       dispatch(setViajes(viajes.viajes));
       dispatch(setUsers(usuarios.data.users));
     };

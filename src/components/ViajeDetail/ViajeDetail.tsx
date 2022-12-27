@@ -17,7 +17,6 @@ const ViajeDetail = () => {
     selectViajeById(state, _id ?? "")
   );
   const [conceptos, setConceptos] = React.useState<any[]>([]);
-  console.log(_id, viaje);
 
   const fetchConceptos = async () => {
     const response = await conceptosService.fetchConceptosFromId(
@@ -38,9 +37,15 @@ const ViajeDetail = () => {
           <h1 style={{
             color: 'rgba(255,211,232,0.8)',
           }}>{viaje?.destino}</h1>
-          <Grid>
+          <Grid 
+            spacing={4}
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(2, 1fr)',
+            }}
+          >
             {conceptos.map((concepto, i) => {
-              return <ConceptoCard key={i} concepto={concepto} />;
+              return <ConceptoCard key={i} concepto={concepto} onSubmitCallback={fetchConceptos} />;
             })}
           </Grid>
         </Grid>
