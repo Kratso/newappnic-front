@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { deserializeViajes, serializeViajes } from "../helpers/serializing";
 
 import viajesService from "../services/viajes.service";
 import { RootState } from "../store/store";
@@ -29,7 +30,7 @@ const initialState: ViajeState = {
       status: "idle",
       error: null 
   },
-  viajes: [],
+  viajes: localStorage.getItem("viajes") ? deserializeViajes(JSON.parse(localStorage.getItem("viajes") || "")) : [],
 };
 
 const viajesSlice = createSlice({
@@ -38,11 +39,11 @@ const viajesSlice = createSlice({
   reducers: {
     setViajes(state, action) {
       state.viajes = action.payload;
+      localStorage.setItem("viajes", JSON.stringify(serializeViajes(action.payload as Viaje[])));
     },
     viajeCreate(state, action) {
       const {viaje, access_token} = action.payload
-      viajesService.createViaje(viaje, access_token);
-
+      const data = viajesService.createViaje(viaje, access_token);
       state.viajes.push(viaje);
     },
     viajeDelete(state, action) {
@@ -113,6 +114,7 @@ export const fetchViajesMiddle = createAsyncThunk('viajes/fetchViajes', async (a
 
 export const createViajeMiddle = createAsyncThunk<Viaje[],{viaje:Viaje, access_token:string},{}>('viajes/createViaje', async ({viaje, access_token}) => {
     await viajesService.createViaje(viaje, access_token);
+    console.log("AAAAAA")
     return (await viajesService.fetchViajes(access_token)).data as Viaje[];
 })
 
