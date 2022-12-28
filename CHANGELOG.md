@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.4](https://github.com/Kratso/newappnic-front/compare/v0.1.3...v0.1.4) (2022-12-28)
+
+
+### Features
+
+* 🎸 added basic helpers for stats ([e9b942b](https://github.com/Kratso/newappnic-front/commit/e9b942b7c7bfb2c79c6dd42981bf49d47aeed0f3))
+* 🎸 added concepto update dialog and viaje detail page ([d5d294c](https://github.com/Kratso/newappnic-front/commit/d5d294c4b04cf68517db820a52b3227d972f33dd))
+* 🎸 added perfil page ([68f7e47](https://github.com/Kratso/newappnic-front/commit/68f7e47475958f8dc2f7e9a372cff0540ea53ceb))
+* 🎸 added permanence to viajes state ([16fe02d](https://github.com/Kratso/newappnic-front/commit/16fe02d76ef2ce695b1f98e9ac9f8ffb62c770fb))
+* 🎸 added stats page ([37d2ef0](https://github.com/Kratso/newappnic-front/commit/37d2ef05c086892836d1777b9513e3f92e00c4ba))
+* 🎸 expanded ViajeDetail ([e9fa823](https://github.com/Kratso/newappnic-front/commit/e9fa8232c55b219a6e6d605ddbf0d3866bddcd49))
+
+
+### Bug Fixes
+
+* 🐛 fixed all viajes appearing when upping concepto ([5a388bb](https://github.com/Kratso/newappnic-front/commit/5a388bb463490c9c19f5413027628fa60b93659d))
+
 ### [0.1.3](https://github.com/Kratso/newappnic-front/compare/v0.1.2...v0.1.3) (2022-12-26)
 
 
