@@ -42,7 +42,7 @@ const ConceptoCard = ({
       sx={{
         width: "100%",
         maxWidth: 500,
-        marginTop: 2,
+        margin: 2,
       }}
     >
       <CardHeader title={concepto.titulo} />

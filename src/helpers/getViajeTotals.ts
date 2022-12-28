@@ -4,13 +4,13 @@ import { Viaje } from "../slices/viajes.slice";
 export const getPrecioTotal = (conceptos: Concepto[]) => {
     return conceptos.reduce((acc, curr) => {
         return acc + curr.precio*curr.unidades;
-    }, 0);   
+    }, 0).toFixed(2);   
 }
 
 export const getPrecioPerCapita = (conceptos: Concepto[]) => {
     return conceptos.reduce((acc, curr) => {
         return acc + curr.precio*curr.unidades/curr.participantes.length;
-    }, 0);   
+    }, 0).toFixed(2);   
 }
 
 export const getPrecioPerDiem = (viaje: Viaje, conceptos: Concepto[]) => {
@@ -18,7 +18,7 @@ export const getPrecioPerDiem = (viaje: Viaje, conceptos: Concepto[]) => {
 
     return conceptos.reduce((acc, curr) => {
         return acc + curr.precio*curr.unidades/dias;
-    }, 0);
+    }, 0).toFixed(2);
 }
 
 export const getPrecioPerDiemPerCapita = (viaje: Viaje, conceptos: Concepto[]) => {
@@ -26,5 +26,5 @@ export const getPrecioPerDiemPerCapita = (viaje: Viaje, conceptos: Concepto[]) =
 
     return conceptos.reduce((acc, curr) => {
         return acc + curr.precio*curr.unidades/dias/curr.participantes.length;
-    }, 0);
+    }, 0).toFixed(2);
 }
