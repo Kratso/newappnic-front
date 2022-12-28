@@ -21,7 +21,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectAllViajes } from "../../slices/viajes.slice";
 import { AppDispatch, RootState } from "../../store/store";
-import { selectAccessToken, User } from "../../slices/login.slice";
+import { selectAccessToken, selectUser, User } from "../../slices/login.slice";
 import { createConcepto, updateConcepto } from "../../slices/concepto.slice";
 
 const ConceptoForm = ({
@@ -37,8 +37,9 @@ const ConceptoForm = ({
   onSubmitCallback = () => {},
 }) => {
   const dispatch = useDispatch<AppDispatch>();
+  const user = useSelector((state: RootState) => selectUser(state));
 
-  const viajes = useSelector((state: RootState) => selectAllViajes(state));
+  const viajes = useSelector((state: RootState) => selectAllViajes(state)).filter(v=>(v.participantes as any).filter((p: User) => p._id === user.user?._id).length > 0 || user.user?.role === "admin");
   const access_token = useSelector((state: RootState) =>
     selectAccessToken(state)
   );
