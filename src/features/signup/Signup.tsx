@@ -25,6 +25,7 @@ const signupSchema = object({
     .min(8, "Password must be more than 8 characters")
     .max(32, "Password must be less than 32 characters"),
   passwordConfirm: string().min(1, "Please confirm your password"),
+  phone: string().min(1, "Phone is required").max(70),
 }).refine((data) => data.password === data.passwordConfirm, {
   path: ["passwordConfirm"],
   message: "Passwords do not match",
@@ -44,6 +45,7 @@ const SignupPage: FC = () => {
     email: "",
     password: "",
     passwordConfirm: "",
+    phone: "",
   };
 
   // ? Object containing all the methods returned by useForm
@@ -54,9 +56,9 @@ const SignupPage: FC = () => {
 
   // ? Form Handler
   const onSubmitHandler: SubmitHandler<ISignUp> = async (values: ISignUp) => {
-    const {name, email, password, passwordConfirm} = values;
+    const {name, email, password, passwordConfirm, phone} = values;
 
-    dispatch(register(await authService.register(name, email, password, passwordConfirm)))
+    dispatch(register(await authService.register(name, email, password, passwordConfirm, phone)))
 
     navigate("/");
   };
@@ -97,7 +99,7 @@ const SignupPage: FC = () => {
                   pb: { sm: "3rem" },
                 }}
               >
-                Welcome To Loop True!
+                Bienvenido a TravelAccountant
               </Typography>
               <Grid
                 item
@@ -157,6 +159,13 @@ const SignupPage: FC = () => {
                       type="password"
                       label="Confirm Password"
                       name="passwordConfirm"
+                      required
+                      focused
+                    />
+                    <FormInput
+                      type="phone"
+                      label="Phone Number"
+                      name="phone"
                       required
                       focused
                     />

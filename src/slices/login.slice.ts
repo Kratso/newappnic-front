@@ -11,6 +11,7 @@ export interface User {
   role?: string;
   access_token?: string;
   password?: string;
+  phone?: string;
 }
 
 export interface UserStatus {
@@ -102,8 +103,8 @@ export const loginMiddle = createAsyncThunk<
 
 export const registerMiddle = createAsyncThunk<
   any,
-  { username: string; email: string; password: string; passwordConfirm: string }
+  { username: string; email: string; password: string; passwordConfirm: string, phone: string }
 >("userData/register", async (authData) => {
-  const { username, email, password, passwordConfirm } = authData;
-  return await AuthService.register(username, email, password, passwordConfirm);
+  const { username, email, password, passwordConfirm, phone } = authData;
+  return await AuthService.register(username, email, password, passwordConfirm, phone);
 });

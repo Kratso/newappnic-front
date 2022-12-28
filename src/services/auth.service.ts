@@ -44,12 +44,13 @@ class AuthService {
     // Just in case we need to alert anyone we are loging out. I will NOT elaborate.
   }
 
-  async register(username: string, email: string, password: string, confirmPassword: string) {
+  async register(username: string, email: string, password: string, confirmPassword: string, phone: string) {
     return axios.post(AUTH_URL + "register", {
       name: username,
       email,
       password,
-      passwordConfirm: confirmPassword
+      passwordConfirm: confirmPassword,
+      phone,
     });
   }
 }
