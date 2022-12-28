@@ -33,6 +33,7 @@ import { setUsers } from "../../slices/users.slice";
 import ConceptoForm from "../../components/ConceptoForm/ConceptoForm";
 import ErrorView from "../../app/error/ErrorView";
 import Stats from "../stats/Stats";
+import Perfil from "../perfil/Perfil";
 
 const drawerWidth: number = 240;
 
@@ -167,6 +168,7 @@ function DashboardContent() {
                 <Route path="/viaje/:_id" element={<ViajeDetail />} />
                 <Route path="/concepto" element={<ConceptoForm />} />
                 <Route path="/stats" element={<Stats />} />
+                <Route path="/perfil" element={<Perfil />} />
 ¡              </Routes>
             </Grid>
           </Container>
