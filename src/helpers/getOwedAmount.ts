@@ -16,7 +16,8 @@ export function getAmountOwed(conceptos: Concepto[], user: User): number {
         if (typeof participante === "object" && !participante.pagado) {
           amountOwed += concepto.precio * concepto.unidades / concepto.participantes.length;
         }
-      } else if ((concepto.pagador as any)._id === user._id) {
+      }
+      if ((concepto.pagador as any)._id === user._id) {
         // If the user is the pagador for this concepto, add the total cost to the amount owed
         amountOwed -= concepto.precio * concepto.unidades;
       }

@@ -32,6 +32,7 @@ import userService from "../../services/user.service";
 import { setUsers } from "../../slices/users.slice";
 import ConceptoForm from "../../components/ConceptoForm/ConceptoForm";
 import ErrorView from "../../app/error/ErrorView";
+import Stats from "../stats/Stats";
 
 const drawerWidth: number = 240;
 
@@ -165,6 +166,7 @@ function DashboardContent() {
                 <Route path="/" element={<ViajesList />} />
                 <Route path="/viaje/:_id" element={<ViajeDetail />} />
                 <Route path="/concepto" element={<ConceptoForm />} />
+                <Route path="/stats" element={<Stats />} />
 ¡              </Routes>
             </Grid>
           </Container>
