@@ -11,8 +11,7 @@ import { AppDispatch } from "../../store/store";
 import FormInput from "../../components/FormInput";
 import { register } from "../../slices/login.slice";
 import authService from "../../services/auth.service";
-import { LinkItem, mainColor, secondaryColor, textColor, borderRadius } from "../login/Login";
-import { useAppSelector } from "../../store/hooks";
+import { LinkItem, mainColor, secondaryColor, borderRadius } from "../login/Login";
 
 import image from "./assets/image.gif";
 

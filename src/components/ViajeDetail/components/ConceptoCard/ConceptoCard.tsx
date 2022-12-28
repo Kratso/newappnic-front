@@ -11,7 +11,6 @@ import {
 } from "@mui/material";
 import React from "react";
 import { Concepto } from "../../../../slices/concepto.slice";
-import { User } from "../../../../slices/login.slice";
 import ConceptoForm from "../../../ConceptoForm/ConceptoForm";
 import FormDialog from "../../../FormDialog/FormDialog";
 

@@ -113,7 +113,6 @@ export const fetchViajesMiddle = createAsyncThunk('viajes/fetchViajes', async (a
 
 export const createViajeMiddle = createAsyncThunk<Viaje[],{viaje:Viaje, access_token:string},{}>('viajes/createViaje', async ({viaje, access_token}) => {
     await viajesService.createViaje(viaje, access_token);
-    const viajes = ((await viajesService.fetchViajes(access_token)).data as any)?.data?.viajes;
     return (await viajesService.fetchViajes(access_token)).data as Viaje[];
 })
 

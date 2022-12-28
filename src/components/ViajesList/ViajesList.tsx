@@ -1,6 +1,3 @@
-import { Fab } from "@mui/material";
-import { Add } from "@mui/icons-material";
-import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { selectUserRole } from "../../slices/login.slice";
 import { selectAllViajes } from "../../slices/viajes.slice";
@@ -20,7 +17,7 @@ const ViajesList = () => {
           <ViajeItem key={i} viaje={viaje} />
         ))}
       </Stack>
-      {userRole !== "admin" ? (
+      {userRole === "admin" ? (
         <ViajeFormDialog fab={true} />
       ) : (
         <></>

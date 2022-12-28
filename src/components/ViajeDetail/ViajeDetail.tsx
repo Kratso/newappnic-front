@@ -28,26 +28,39 @@ const ViajeDetail = () => {
 
   useEffect(() => {
     fetchConceptos();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [access_token, _id]);
 
   return (
     <>
       <Container>
         <Grid>
-          <h1 style={{
-            color: 'rgba(255,211,232,0.8)',
-          }}>{viaje?.destino}</h1>
-          <Grid 
-            spacing={4}
-            sx={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(2, 1fr)',
+          <h1
+            style={{
+              color: "rgba(255,211,232,0.8)",
             }}
           >
-            {conceptos.map((concepto, i) => {
-              return <ConceptoCard key={i} concepto={concepto} onSubmitCallback={fetchConceptos} />;
-            })}
-          </Grid>
+            {viaje?.destino}
+          </h1>
+          <Container>
+            <Grid
+              spacing={2}
+              sx={{
+                display: "grid",
+                gridTemplateColumns: "repeat(2, 1fr)",
+              }}
+            >
+              {conceptos.map((concepto, i) => {
+                return (
+                  <ConceptoCard
+                    key={i}
+                    concepto={concepto}
+                    onSubmitCallback={fetchConceptos}
+                  />
+                );
+              })}
+            </Grid>
+          </Container>
         </Grid>
       </Container>
     </>

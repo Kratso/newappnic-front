@@ -80,6 +80,7 @@ const ConceptoForm = ({
     const selectedViaje = viajes.filter((v) => v._id === viaje)[0];
     setParticipantes((selectedViaje?.participantes as any) ?? []);
     setSelectedViaje(selectedViaje ?? { participantes: [] });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [viaje]);
 
   const handleFormInput = () => {

@@ -1,5 +1,5 @@
 import { CssBaseline } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import Dashboard from "../../features/landing/Dashboard";
 import userService from "../../services/user.service";
@@ -26,6 +26,7 @@ function App() {
       }
     };
     checkUser(access_token ?? "");
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLogged]);
 
   return (

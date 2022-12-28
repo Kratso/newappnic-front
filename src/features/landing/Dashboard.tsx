@@ -9,18 +9,14 @@ import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import Badge from "@mui/material/Badge";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import NotificationsIcon from "@mui/icons-material/Notifications";
 import { MainListItems, secondaryListItems } from "./listItems";
 import {
   mainColor,
   secondaryColor,
-  textColor,
-  borderRadius,
 } from "../login/Login";
 import { Route, Routes } from "react-router";
 import ViajesList from "../../components/ViajesList/ViajesList";
@@ -35,6 +31,7 @@ import ViajeDetail from "../../components/ViajeDetail/ViajeDetail";
 import userService from "../../services/user.service";
 import { setUsers } from "../../slices/users.slice";
 import ConceptoForm from "../../components/ConceptoForm/ConceptoForm";
+import ErrorView from "../../app/error/ErrorView";
 
 const drawerWidth: number = 240;
 
@@ -168,7 +165,7 @@ function DashboardContent() {
                 <Route path="/" element={<ViajesList />} />
                 <Route path="/viaje/:_id" element={<ViajeDetail />} />
                 <Route path="/concepto" element={<ConceptoForm />} />
-              </Routes>
+¡              </Routes>
             </Grid>
           </Container>
         </Box>
@@ -193,6 +190,7 @@ export default function Dashboard() {
       dispatch(setUsers(usuarios.data.users));
     };
     fetchData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accessToken]);
 
   return <DashboardContent />;
