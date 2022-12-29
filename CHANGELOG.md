@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.5](https://github.com/Kratso/newappnic-front/compare/v0.1.4...v0.1.5) (2022-12-29)
+
+
+### Features
+
+* 🎸 added permissions on editing and Dockerfile ([8052462](https://github.com/Kratso/newappnic-front/commit/80524628e7f57c87347b1e2d52c50bdb3f985602))
+* 🎸 added phone to user ([a105a6f](https://github.com/Kratso/newappnic-front/commit/a105a6f41eaa6afd581d06f7b6f7c6f65fa25df3))
+
 ### [0.1.4](https://github.com/Kratso/newappnic-front/compare/v0.1.3...v0.1.4) (2022-12-28)
 
 
