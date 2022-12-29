@@ -3,7 +3,7 @@ import axios from "axios";
 import { Concepto } from "../slices/concepto.slice";
 import { BASE_URL } from "../constants";
 
-const API_URL = `${BASE_URL}/api/conceptos/`;
+const API_URL = `${BASE_URL}/api/conceptos`;
 
 const conceptosService = {
     async createConcepto(concepto: Concepto, access_token: string) {

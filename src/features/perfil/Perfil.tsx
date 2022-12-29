@@ -3,7 +3,7 @@ import { Container, Grid, Card, CardHeader, CardContent, Button } from "@mui/mat
 
 const Perfil = () => {
     const logoutHandler = () => {
-        localStorage.removeItem("access_token")
+        localStorage.removeItem("TOKEN")
 
         window.location.reload()
     }

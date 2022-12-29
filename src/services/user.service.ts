@@ -30,7 +30,7 @@ class UserService {
     }
     async getAllUsers(access_token: string) {
       try {
-        const users = (await axios.get(`${USER_URL}/`,{
+        const users = (await axios.get(`${USER_URL}`,{
           headers: { "Authorization": 'Bearer ' + access_token }
           })).data;
 

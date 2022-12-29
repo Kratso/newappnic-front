@@ -10,7 +10,9 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
+import { useSelector } from "react-redux";
 import { Concepto } from "../../../../slices/concepto.slice";
+import { selectUser } from "../../../../slices/login.slice";
 import ConceptoForm from "../../../ConceptoForm/ConceptoForm";
 import FormDialog from "../../../FormDialog/FormDialog";
 
@@ -21,6 +23,7 @@ const ConceptoCard = ({
   concepto: Concepto;
   onSubmitCallback: () => void;
 }) => {
+  const user = useSelector(selectUser);
 
   const [open, setOpen] = React.useState(false);
 
@@ -103,28 +106,31 @@ const ConceptoCard = ({
           </Grid>
         </Grid>
         <CardActions>
-          <FormDialog
-            buttonText="Actualizar"
-            title="Actualizar Concepto"
-            open={open}
-            handleClose={handleClickClose}
-            handleClickOpen={handleClickOpen}
-          >
-            <ConceptoForm
-              onSubmitCallback={dialogOnSubmitCallback}
-              isUpdate
-              propsChecked={(concepto.participantes as any).filter(
-                (p: any) => p.pagado
-              )}
-              _id={concepto._id}
-              propsFecha={concepto.fecha}
-              propsPagador={(concepto.pagador as any)._id}
-              propsPrecio={concepto.precio}
-              propsTitulo={concepto.titulo}
-              propsUnidad={concepto.unidades}
-              propsViaje={(concepto.viaje as any)._id}
-            />
-          </FormDialog>
+          {(user.user?.role === "admin" ||
+            concepto.pagador === user.user?._id) && (
+            <FormDialog
+              buttonText="Actualizar"
+              title="Actualizar Concepto"
+              open={open}
+              handleClose={handleClickClose}
+              handleClickOpen={handleClickOpen}
+            >
+              <ConceptoForm
+                onSubmitCallback={dialogOnSubmitCallback}
+                isUpdate
+                propsChecked={(concepto.participantes as any).filter(
+                  (p: any) => p.pagado
+                )}
+                _id={concepto._id}
+                propsFecha={concepto.fecha}
+                propsPagador={(concepto.pagador as any)._id}
+                propsPrecio={concepto.precio}
+                propsTitulo={concepto.titulo}
+                propsUnidad={concepto.unidades}
+                propsViaje={(concepto.viaje as any)._id}
+              />
+            </FormDialog>
+          )}
         </CardActions>
       </CardContent>
     </Card>

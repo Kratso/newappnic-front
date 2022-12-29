@@ -13,6 +13,7 @@ export interface Viaje {
   destino: string,
   conceptos: Concepto[],
   participantes: string[] | User[],
+  contable: User,
 }
 
 export interface ViajeStatus {
@@ -54,15 +55,16 @@ const viajesSlice = createSlice({
       })      
     },
     viajeUpdate(state, action) {
-        const {_id, destino, conceptos, participantes, start_date, end_date} = action.payload.viaje;
+        const {_id, destino, conceptos, participantes, start_date, end_date, contable} = action.payload.viaje;
         const viaje = state.viajes.find(viaje => viaje._id === _id)
-
+        console.log(viaje)
         if(viaje) {
             viaje.destino = destino
             viaje.conceptos = conceptos;
             viaje.participantes = participantes;
             viaje.start_date = start_date;
             viaje.end_date = end_date;
+            viaje.contable = contable;
         }
     }
   },
@@ -118,8 +120,8 @@ export const createViajeMiddle = createAsyncThunk<Viaje[],{viaje:Viaje, access_t
     return (await viajesService.fetchViajes(access_token)).data as Viaje[];
 })
 
-export const updateViajeMiddle = createAsyncThunk<void,{viaje:Viaje, access_token:string},{}>('viajes/updateViaje', async ({viaje, access_token}) => {
-    await viajesService.updateViaje(viaje, access_token);
+export const updateViajeMiddle = createAsyncThunk<void,{viaje:Viaje},{}>('viajes/updateViaje', async ({viaje}) => {
+  console.log(viaje)
 })
 
 export const deleteViajeMiddle = createAsyncThunk<void,{_id: string, access_token:string}, {} >('viajes/deleteViaje', async ({_id, access_token}) => {

@@ -3,7 +3,7 @@ import axios from "axios";
 import { Viaje } from "../slices/viajes.slice";
 import { BASE_URL } from "../constants";
 
-const API_URL = `${BASE_URL}/api/viaje/`
+const API_URL = `${BASE_URL}/api/viaje`
 
 const viajesService = {
     async createViaje(viaje: Viaje, access_token: string) {
@@ -29,6 +29,7 @@ const viajesService = {
         } catch(err: any ) {
             console.log("ERROR ::>>>>>",err)
         }
+        return viaje;
     },
     async deleteViaje(_id: string, access_token: string) {
         return await axios.post(`${API_URL}/delete/`, {_id} , {
