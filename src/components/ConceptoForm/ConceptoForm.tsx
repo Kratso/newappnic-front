@@ -34,12 +34,19 @@ const ConceptoForm = ({
   propsViaje = "",
   propsChecked = [],
   _id = "",
+  categoria = "",
   onSubmitCallback = () => {},
 }) => {
   const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((state: RootState) => selectUser(state));
 
-  const viajes = useSelector((state: RootState) => selectAllViajes(state)).filter(v=>(v.participantes as any).filter((p: User) => p._id === user.user?._id).length > 0 || user.user?.role === "admin");
+  const viajes = useSelector((state: RootState) =>
+    selectAllViajes(state)
+  ).filter(
+    (v) =>
+      (v.participantes as any).filter((p: User) => p._id === user.user?._id)
+        .length > 0 || user.user?.role === "admin"
+  );
   const access_token = useSelector((state: RootState) =>
     selectAccessToken(state)
   );
@@ -52,6 +59,7 @@ const ConceptoForm = ({
   const [viaje, setViaje] = React.useState(propsViaje);
   const [participantes, setParticipantes] = React.useState<[]>([]);
   const [checked, setChecked] = React.useState<any[]>(propsChecked);
+  const [categoria, setCategoria] = React.useState(categoria);
 
   const handleCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
     let updatedList: any[] = [...checked];
@@ -81,7 +89,7 @@ const ConceptoForm = ({
     const selectedViaje = viajes.filter((v) => v._id === viaje)[0];
     setParticipantes((selectedViaje?.participantes as any) ?? []);
     setSelectedViaje(selectedViaje ?? { participantes: [] });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [viaje]);
 
   const handleFormInput = () => {
@@ -106,6 +114,7 @@ const ConceptoForm = ({
       unidades,
       precio,
       viaje,
+      categoria,
       participantes: isUpdate
         ? participantes.map((p: any) => ({
             usuario: p,
@@ -219,6 +228,22 @@ const ConceptoForm = ({
                       {viaje.destino}
                     </MenuItem>
                   ))}
+                </Select>
+              </FormControl>
+              <FormControl>
+                <Select
+                  labelId="categoria-label"
+                  label="Categoria"
+                  value={categoria}
+                >
+                  <MenuItem value=""></MenuItem>
+                  {["", "comida", "transporte", "alojamiento", "otros"].map(
+                    (categoria) => (
+                      <MenuItem key={categoria} value={categoria}>
+                        {categoria}
+                      </MenuItem>
+                    )
+                  )}
                 </Select>
               </FormControl>
               <FormControl>

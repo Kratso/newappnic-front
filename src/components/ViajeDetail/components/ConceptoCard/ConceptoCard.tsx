@@ -64,6 +64,12 @@ const ConceptoCard = ({
             </Typography>
           </Grid>
           <Grid item xs={6}>
+            <Typography variant="body2">Concepto</Typography>
+            <Typography variant="body1">
+              {concepto.categoria}
+            </Typography>
+          </Grid>
+          <Grid item xs={6}>
             <Typography variant="body2">Unidades</Typography>
             <Typography variant="body1">{concepto.unidades}</Typography>
           </Grid>
