@@ -34,7 +34,8 @@ const ConceptoForm = ({
   propsViaje = "",
   propsChecked = [],
   _id = "",
-  categoria = "",
+  propsCategoria = "",
+  propsParticipantes = [],
   onSubmitCallback = () => {},
 }) => {
   const dispatch = useDispatch<AppDispatch>();
@@ -57,9 +58,11 @@ const ConceptoForm = ({
   const [unidades, setUnidades] = React.useState(propsUnidad);
   const [precio, setPrecio] = React.useState(propsPrecio);
   const [viaje, setViaje] = React.useState(propsViaje);
-  const [participantes, setParticipantes] = React.useState<[]>([]);
+  const [participantes, setParticipantes] = React.useState<[]>(propsParticipantes as any);
   const [checked, setChecked] = React.useState<any[]>(propsChecked);
-  const [categoria, setCategoria] = React.useState(categoria);
+  const [categoria, setCategoria] = React.useState(propsCategoria);
+
+  console.log("AAAAAAAA", isUpdate, participantes)
 
   const handleCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
     let updatedList: any[] = [...checked];
@@ -87,7 +90,7 @@ const ConceptoForm = ({
 
   useEffect(() => {
     const selectedViaje = viajes.filter((v) => v._id === viaje)[0];
-    setParticipantes((selectedViaje?.participantes as any) ?? []);
+    setParticipantes(isUpdate ? propsParticipantes : (selectedViaje?.participantes as any) ?? []);
     setSelectedViaje(selectedViaje ?? { participantes: [] });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [viaje]);
@@ -125,9 +128,9 @@ const ConceptoForm = ({
             .map((usuario: any) => ({ usuario, pagado: false })),
     };
     isUpdate
-      ? dispatch(updateConcepto({ concepto, access_token: access_token ?? "" }))
+      ? dispatch(updateConcepto({ concepto: (concepto as any), access_token: access_token ?? "" }))
       : dispatch(
-          createConcepto({ concepto, access_token: access_token ?? "" })
+          createConcepto({ concepto: (concepto as any), access_token: access_token ?? "" })
         );
 
     resetForm();
@@ -235,6 +238,7 @@ const ConceptoForm = ({
                   labelId="categoria-label"
                   label="Categoria"
                   value={categoria}
+                  onChange={(e) => setCategoria(e.target.value as string)}
                 >
                   <MenuItem value=""></MenuItem>
                   {["", "comida", "transporte", "alojamiento", "otros"].map(
@@ -299,7 +303,7 @@ const ConceptoForm = ({
               <FormControl component="fieldset" variant="standard">
                 <FormLabel component="legend">Participantes</FormLabel>
                 <FormGroup>
-                  {participantes?.map((_: any, i) => {
+                  {(isUpdate ? propsParticipantes : selectedViaje.participantes)?.map((_: any) => {
                     return (
                       <FormControlLabel
                         control={

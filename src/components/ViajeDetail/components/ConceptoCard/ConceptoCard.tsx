@@ -134,6 +134,8 @@ const ConceptoCard = ({
                 propsTitulo={concepto.titulo}
                 propsUnidad={concepto.unidades}
                 propsViaje={(concepto.viaje as any)._id}
+                propsCategoria={concepto.categoria}
+                propsParticipantes={(concepto.participantes.map(p=>(p as any).usuario) as any)}
               />
             </FormDialog>
           )}
