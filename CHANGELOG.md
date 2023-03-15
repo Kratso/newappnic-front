@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.6](https://github.com/Kratso/newappnic-front/compare/v0.1.5...v0.1.6) (2023-03-15)
+
+
+### Features
+
+* 🎸 added categoria to concepto ([3181940](https://github.com/Kratso/newappnic-front/commit/31819406e9e613ec0d8815e7f00eaa54fef98809))
+* 🎸 fixed accountant calculation ([5c9be38](https://github.com/Kratso/newappnic-front/commit/5c9be3892dc764cd6da940f1d1176931d10af9a5))
+
+
+### Bug Fixes
+
+* 🐛 fixed categoria and updating payments ([1caa15b](https://github.com/Kratso/newappnic-front/commit/1caa15ba99c41d930fdc3e29baeb77d6948d2269))
+
 ### [0.1.5](https://github.com/Kratso/newappnic-front/compare/v0.1.4...v0.1.5) (2022-12-29)
 
 
