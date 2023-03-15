@@ -45,7 +45,8 @@ const Stats = () => {
     setConceptos(response ? response.conceptos : []);
   };
 
-  console.log(conceptos);
+  const viajeObject = viajes.find((viaje) => viaje._id === selectedViaje);
+  console.log(viajeObject?.contable._id === user?.user?._id, viajeObject?.contable._id, user?.user?._id);
 
   useEffect(() => {
     fetchConceptos();
@@ -91,7 +92,7 @@ const Stats = () => {
                   <Grid item xs={12}>
                     <Typography variant="h6">Total a Deber</Typography>
                     <Typography variant="body1">
-                      {getAmountOwed(conceptos, user?.user as User).toFixed(2)}{" "}
+                      {getAmountOwed(conceptos, user?.user as User, selectedViaje?.contable?._id === user?.user?._id).toFixed(2)}{" "}
                       €
                     </Typography>
                   </Grid>
