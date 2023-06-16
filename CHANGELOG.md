@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.8](https://github.com/Kratso/newappnic-front/compare/v0.1.7...v0.1.8) (2023-06-16)
+
+
+### Features
+
+* 🎸 sorted viajes in viajesList ([8f4b113](https://github.com/Kratso/newappnic-front/commit/8f4b1137023a070b1a3e6455a3b641de02843916))
+
+
+### Bug Fixes
+
+* 🐛 fixed detail calculations ([a48d311](https://github.com/Kratso/newappnic-front/commit/a48d311985d8c0bd7531642a679b89af148fb043))
+
 ### [0.1.7](https://github.com/Kratso/newappnic-front/compare/v0.1.6...v0.1.7) (2023-06-16)
 
 
