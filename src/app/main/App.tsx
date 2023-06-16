@@ -1,17 +1,17 @@
-import { CssBaseline } from "@mui/material";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import Dashboard from "../../features/landing/Dashboard";
-import userService from "../../services/user.service";
+import { CssBaseline } from '@mui/material';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import Dashboard from '../../features/landing/Dashboard';
+import userService from '../../services/user.service';
 import {
   selectAccessToken,
   selectIsLogged,
   setUser,
-} from "../../slices/login.slice";
-import { useAppSelector } from "../../store/hooks";
-import { AppDispatch } from "../../store/store";
+} from '../../slices/login.slice';
+import { useAppSelector } from '../../store/hooks';
+import { AppDispatch } from '../../store/store';
 
-import UnloggedApp from "./UnloggedApp";
+import UnloggedApp from './UnloggedApp';
 
 function App() {
   const isLogged = useAppSelector((state) => selectIsLogged(state));
@@ -25,7 +25,7 @@ function App() {
         dispatch(setUser(checkedUser));
       }
     };
-    checkUser(access_token ?? "");
+    checkUser(access_token ?? '');
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLogged]);
 

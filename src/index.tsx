@@ -1,18 +1,18 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
-import { LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
-import { Provider } from "react-redux";
-import { store } from "./store/store";
-import App from "./app/main/App";
-import "./index.css";
+import { Provider } from 'react-redux';
+import { store } from './store/store';
+import App from './app/main/App';
+import './index.css';
 
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
+  document.getElementById('root') as HTMLElement
 );
 
 const darkTheme = createTheme({

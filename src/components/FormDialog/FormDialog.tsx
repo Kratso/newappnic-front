@@ -1,5 +1,5 @@
-import { Button, Dialog, DialogContent, DialogTitle } from "@mui/material";
-import React from "react";
+import { Button, Dialog, DialogContent, DialogTitle } from '@mui/material';
+import React from 'react';
 
 interface FormDialogProps {
   title: string;
@@ -22,15 +22,15 @@ const FormDialog: React.FC<FormDialogProps> = ({
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+      <Button variant='outlined' color='primary' onClick={handleClickOpen}>
         {buttonText}
       </Button>
       <Dialog
         open={open}
         onClose={handleClose}
-        aria-labelledby="form-dialog-title"
+        aria-labelledby='form-dialog-title'
       >
-        <DialogTitle id="form-dialog-title">{title}</DialogTitle>
+        <DialogTitle id='form-dialog-title'>{title}</DialogTitle>
         <DialogContent>{children}</DialogContent>
       </Dialog>
     </div>

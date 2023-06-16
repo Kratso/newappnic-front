@@ -14,29 +14,29 @@ import {
   Select,
   TextField,
   Typography,
-} from "@mui/material";
-import { Unstable_DateField as DateField } from "@mui/x-date-pickers/DateField";
-import Navigation from "@mui/icons-material/Navigation";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { selectAllViajes } from "../../slices/viajes.slice";
-import { AppDispatch, RootState } from "../../store/store";
-import { selectAccessToken, selectUser, User } from "../../slices/login.slice";
-import { createConcepto, updateConcepto } from "../../slices/concepto.slice";
-import { Divisas } from "../../constants";
+} from '@mui/material';
+import { Unstable_DateField as DateField } from '@mui/x-date-pickers/DateField';
+import Navigation from '@mui/icons-material/Navigation';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectAllViajes } from '../../slices/viajes.slice';
+import { AppDispatch, RootState } from '../../store/store';
+import { selectAccessToken, selectUser, User } from '../../slices/login.slice';
+import { createConcepto, updateConcepto } from '../../slices/concepto.slice';
+import { Divisas } from '../../constants';
 
 const ConceptoForm = ({
   isUpdate = false,
-  propsTitulo = "",
+  propsTitulo = '',
   propsFecha = new Date(),
-  propsPagador = "",
+  propsPagador = '',
   propsUnidad = 0,
   propsPrecio = 0,
-  propsViaje = "",
+  propsViaje = '',
   propsChecked = [],
-  propsDivisa = "",
-  _id = "",
-  propsCategoria = "",
+  propsDivisa = '',
+  _id = '',
+  propsCategoria = '',
   propsParticipantes = [],
   onSubmitCallback = () => {},
 }) => {
@@ -48,7 +48,7 @@ const ConceptoForm = ({
   ).filter(
     (v) =>
       (v.participantes as any).filter((p: User) => p._id === user.user?._id)
-        .length > 0 || user.user?.role === "admin"
+        .length > 0 || user.user?.role === 'admin'
   );
   const access_token = useSelector((state: RootState) =>
     selectAccessToken(state)
@@ -82,12 +82,12 @@ const ConceptoForm = ({
   });
 
   const resetForm = () => {
-    setTitulo("");
+    setTitulo('');
     setFecha(new Date());
-    setPagador("");
+    setPagador('');
     setUnidades(0);
     setPrecio(0);
-    setViaje("");
+    setViaje('');
     setChecked([]);
   };
 
@@ -104,15 +104,15 @@ const ConceptoForm = ({
 
   const handleFormInput = () => {
     if (
-      titulo === "" ||
+      titulo === '' ||
       fecha === null ||
-      pagador === "" ||
+      pagador === '' ||
       unidades === 0 ||
       precio === 0 ||
-      viaje === "" ||
+      viaje === '' ||
       checked.length === 0
     ) {
-      alert("Rellena todos los campos");
+      alert('Rellena todos los campos');
       return;
     }
 
@@ -139,13 +139,13 @@ const ConceptoForm = ({
       ? dispatch(
           updateConcepto({
             concepto: concepto as any,
-            access_token: access_token ?? "",
+            access_token: access_token ?? '',
           })
         )
       : dispatch(
           createConcepto({
             concepto: concepto as any,
-            access_token: access_token ?? "",
+            access_token: access_token ?? '',
           })
         );
 
@@ -157,91 +157,91 @@ const ConceptoForm = ({
     <>
       <Container
         sx={{
-          margin: "auto",
+          margin: 'auto',
         }}
       >
         {isUpdate ? (
           <></>
         ) : (
           <Typography
-            variant="h2"
+            variant='h2'
             gutterBottom
-            component="div"
+            component='div'
             sx={{
-              color: "var(--color-text)",
+              color: 'var(--color-text)',
             }}
           >
-            {" "}
-            Subir un Concepto{" "}
+            {' '}
+            Subir un Concepto{' '}
           </Typography>
         )}
       </Container>
       <Container>
         <Grid
           container
-          justifyContent="center"
-          alignItems="center"
+          justifyContent='center'
+          alignItems='center'
           sx={{
-            width: "60%",
-            height: "100%",
-            borderRadius: "20px",
-            margin: "auto",
-            marginTop: "2rem",
-            backgroundColor: "var(--color-bg-card)",
-            padding: "2rem",
+            width: '60%',
+            height: '100%',
+            borderRadius: '20px',
+            margin: 'auto',
+            marginTop: '2rem',
+            backgroundColor: 'var(--color-bg-card)',
+            padding: '2rem',
           }}
         >
           <Grid>
             <Grid
               item
               container
-              justifyContent="space-between"
+              justifyContent='space-between'
               rowSpacing={3}
               sx={{
-                maxWidth: { sm: "45rem" },
-                marginInline: "auto",
-                gap: "4rem",
+                maxWidth: { sm: '45rem' },
+                marginInline: 'auto',
+                gap: '4rem',
               }}
             >
               <FormControl>
                 <TextField
-                  label="Título"
+                  label='Título'
                   value={titulo}
                   onChange={(e) => setTitulo(e.target.value)}
-                  variant="standard"
+                  variant='standard'
                   sx={{
-                    width: "100%",
-                    minWidth: "12rem",
+                    width: '100%',
+                    minWidth: '12rem',
                   }}
                 />
               </FormControl>
 
               <FormControl>
                 <DateField
-                  label="Fecha"
+                  label='Fecha'
                   value={fecha}
                   onChange={(newValue) => setFecha(newValue ?? new Date())}
-                  format="DD/MM/YYYY"
+                  format='DD/MM/YYYY'
                   sx={{
-                    width: "100%",
-                    minWidth: "12rem",
+                    width: '100%',
+                    minWidth: '12rem',
                   }}
                 />
               </FormControl>
               <FormControl>
-                <InputLabel id="viaje-label">Viaje</InputLabel>
+                <InputLabel id='viaje-label'>Viaje</InputLabel>
                 <Select
-                  labelId="viaje-label"
-                  label="Viaje"
+                  labelId='viaje-label'
+                  label='Viaje'
                   value={viaje}
                   disabled={isUpdate}
                   onChange={(e) => setViaje(e.target.value as string)}
                   sx={{
-                    width: "100%",
-                    minWidth: "12rem",
+                    width: '100%',
+                    minWidth: '12rem',
                   }}
                 >
-                  <MenuItem value=""></MenuItem>
+                  <MenuItem value=''></MenuItem>
                   {viajes?.map((viaje) => (
                     <MenuItem key={viaje._id} value={viaje._id}>
                       {viaje.destino}
@@ -250,19 +250,19 @@ const ConceptoForm = ({
                 </Select>
               </FormControl>
               <FormControl>
-                <InputLabel id="categoria-label">Categoria</InputLabel>
+                <InputLabel id='categoria-label'>Categoria</InputLabel>
                 <Select
-                  labelId="categoria-label"
-                  label="Categoria"
+                  labelId='categoria-label'
+                  label='Categoria'
                   value={categoria}
                   onChange={(e) => setCategoria(e.target.value as string)}
                   sx={{
-                    width: "100%",
-                    minWidth: "12rem",
+                    width: '100%',
+                    minWidth: '12rem',
                   }}
                 >
-                  <MenuItem value=""></MenuItem>
-                  {["", "comida", "transporte", "alojamiento", "otros"].map(
+                  <MenuItem value=''></MenuItem>
+                  {['', 'comida', 'transporte', 'alojamiento', 'otros'].map(
                     (categoria) => (
                       <MenuItem key={categoria} value={categoria}>
                         {categoria}
@@ -272,18 +272,18 @@ const ConceptoForm = ({
                 </Select>
               </FormControl>
               <FormControl>
-                <InputLabel id="divisa-label">Divisa</InputLabel>
+                <InputLabel id='divisa-label'>Divisa</InputLabel>
                 <Select
-                  labelId="divisa-label"
-                  label="Divisa"
+                  labelId='divisa-label'
+                  label='Divisa'
                   value={divisa}
                   onChange={(e) => setDivisa(e.target.value as string)}
                   sx={{
-                    width: "100%",
-                    minWidth: "12rem",
+                    width: '100%',
+                    minWidth: '12rem',
                   }}
                 >
-                  <MenuItem value=""></MenuItem>
+                  <MenuItem value=''></MenuItem>
                   {Divisas.map((divisa) => (
                     <MenuItem key={divisa} value={divisa}>
                       {divisa}
@@ -292,19 +292,19 @@ const ConceptoForm = ({
                 </Select>
               </FormControl>
               <FormControl>
-                <InputLabel id="pagador-label">Pagador</InputLabel>
+                <InputLabel id='pagador-label'>Pagador</InputLabel>
                 <Select
-                  labelId="pagador-label"
-                  label="Pagador"
+                  labelId='pagador-label'
+                  label='Pagador'
                   value={pagador}
                   disabled={isUpdate}
                   onChange={(e) => setPagador(e.target.value as string)}
                   sx={{
-                    width: "100%",
-                    minWidth: "12rem",
+                    width: '100%',
+                    minWidth: '12rem',
                   }}
                 >
-                  <MenuItem value=""></MenuItem>
+                  <MenuItem value=''></MenuItem>
                   {selectedViaje.participantes?.map((usuario: User) => (
                     <MenuItem key={usuario._id} value={usuario._id}>
                       {usuario.name}
@@ -314,35 +314,35 @@ const ConceptoForm = ({
               </FormControl>
               <FormControl>
                 <TextField
-                  label="Unidades"
-                  type={"number"}
+                  label='Unidades'
+                  type={'number'}
                   value={unidades}
                   onChange={(e) => setUnidades(Number(e.target.value))}
-                  variant="standard"
+                  variant='standard'
                   sx={{
-                    width: "100%",
-                    minWidth: "12rem",
+                    width: '100%',
+                    minWidth: '12rem',
                   }}
                 />
               </FormControl>
               <FormControl>
                 <TextField
-                  label="Precio por unidad"
-                  type={"number"}
+                  label='Precio por unidad'
+                  type={'number'}
                   value={precio}
-                  variant="standard"
+                  variant='standard'
                   onChange={(e) => setPrecio(Number(e.target.value))}
                   InputProps={{
                     startAdornment: <span>{divisa}</span>,
                   }}
                   sx={{
-                    width: "100%",
-                    minWidth: "12rem",
+                    width: '100%',
+                    minWidth: '12rem',
                   }}
                 />
               </FormControl>
-              <FormControl component="fieldset" variant="standard">
-                <FormLabel component="legend">Participantes</FormLabel>
+              <FormControl component='fieldset' variant='standard'>
+                <FormLabel component='legend'>Participantes</FormLabel>
                 <FormGroup>
                   {(isUpdate
                     ? propsParticipantes
@@ -362,11 +362,11 @@ const ConceptoForm = ({
               {isUpdate ? (
                 <FormControl>
                   <Button
-                    variant="contained"
+                    variant='contained'
                     onClick={handleFormInput}
                     sx={{
-                      width: "100%",
-                      minWidth: "12rem",
+                      width: '100%',
+                      minWidth: '12rem',
                     }}
                   >
                     Actualizar
@@ -382,14 +382,14 @@ const ConceptoForm = ({
       {isUpdate ? (
         <></>
       ) : (
-        <Box sx={{ "& > :not(style)": { m: 1 } }}>
+        <Box sx={{ '& > :not(style)': { m: 1 } }}>
           <Fab
-            variant="extended"
+            variant='extended'
             sx={{
-              position: "fixed",
+              position: 'fixed',
               bottom: (theme) => theme.spacing(4),
               right: (theme) => theme.spacing(4),
-              backgroundColor: "var(--color-primary)",
+              backgroundColor: 'var(--color-primary)',
             }}
             onClick={handleFormInput}
           >

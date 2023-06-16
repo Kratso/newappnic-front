@@ -10,18 +10,18 @@ import {
   Card,
   CardHeader,
   CardContent,
-} from "@mui/material";
-import Container from "@mui/material/Container";
-import Select from "@mui/material/Select";
-import React from "react";
-import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { getAmountOwed } from "../../helpers/getOwedAmount";
-import { getPrecioTotal } from "../../helpers/getViajeTotals";
-import conceptosService from "../../services/concepto.service";
-import { selectAccessToken, selectUser, User } from "../../slices/login.slice";
-import { selectAllViajes } from "../../slices/viajes.slice";
-import { RootState } from "../../store/store";
+} from '@mui/material';
+import Container from '@mui/material/Container';
+import Select from '@mui/material/Select';
+import React from 'react';
+import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { getAmountOwed } from '../../helpers/getOwedAmount';
+import { getPrecioTotal } from '../../helpers/getViajeTotals';
+import conceptosService from '../../services/concepto.service';
+import { selectAccessToken, selectUser, User } from '../../slices/login.slice';
+import { selectAllViajes } from '../../slices/viajes.slice';
+import { RootState } from '../../store/store';
 
 const Stats = () => {
   const user = useSelector((state: RootState) => selectUser(state));
@@ -30,7 +30,7 @@ const Stats = () => {
     selectAccessToken(state)
   );
 
-  const [selectedViaje, setSelectedViaje] = useState<any>("");
+  const [selectedViaje, setSelectedViaje] = useState<any>('');
 
   const [conceptos, setConceptos] = React.useState<any[]>([]);
 
@@ -41,8 +41,8 @@ const Stats = () => {
 
     if (selectedViaje)
       response = await conceptosService.fetchConceptosFromId(
-        selectedViaje ?? "",
-        access_token ?? ""
+        selectedViaje ?? '',
+        access_token ?? ''
       );
     setConceptos(response ? response.conceptos : []);
   };
@@ -73,22 +73,22 @@ const Stats = () => {
       <Container>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <Typography variant="h1" style={{ color: 'var(--color-text)' }}>
+            <Typography variant='h1' style={{ color: 'var(--color-text)' }}>
               Estadísticas
             </Typography>
           </Grid>
           <Grid item xs={12}>
             <Card
               sx={{
-                width: "fit-content",
-                height: "100%",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                backgroundColor: "var(--color-bg-card)",
+                width: 'fit-content',
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                backgroundColor: 'var(--color-bg-card)',
               }}
             >
-              <CardHeader title="Deuda Específica Personal" />
+              <CardHeader title='Deuda Específica Personal' />
               <CardContent>
                 <Grid item xs={12}>
                   <Select
@@ -96,7 +96,7 @@ const Stats = () => {
                     value={selectedViaje}
                     onChange={(e) => setSelectedViaje(e.target.value)}
                   >
-                    <option value={""}></option>
+                    <option value={''}></option>
                     {viajes.map((viaje) => (
                       <option key={viaje._id} value={viaje._id}>
                         {viaje.destino}
@@ -106,10 +106,10 @@ const Stats = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <Grid item xs={12}>
-                    <Typography variant="h6">Total a Deber</Typography>
+                    <Typography variant='h6'>Total a Deber</Typography>
                     {Object.entries(conceptosPorDivisa).map((divisa) => (
-                    <Typography variant="body1">
-                      {getAmountOwed(divisa[1], user?.user as User, selectedViaje?.contable?._id === user?.user?._id).toFixed(2)}{" "}
+                    <Typography variant='body1'>
+                      {getAmountOwed(divisa[1], user?.user as User, selectedViaje?.contable?._id === user?.user?._id).toFixed(2)}{' '}
                       {divisa[0]}
                     </Typography>
                     ))}
@@ -124,26 +124,26 @@ const Stats = () => {
                 <Grid item xs={12} md={6} lg={4}>
                   <Card
                     sx={{
-                      width: "fit-content",
-                      height: "100%",
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "space-between",
+                      width: 'fit-content',
+                      height: '100%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'space-between',
                     }}
                   >
                     <CardHeader title={viaje.destino} />
                     <CardContent>
                       <Grid item xs={12}>
-                        <Typography variant="h6">
+                        <Typography variant='h6'>
                           Número de Participantes
                         </Typography>
-                        <Typography variant="body1">
+                        <Typography variant='body1'>
                           {viaje.participantes.length}
                         </Typography>
                       </Grid>
                       <Grid item xs={12}>
-                        <Typography variant="h6">Precio total</Typography>
-                        <Typography variant="body1">
+                        <Typography variant='h6'>Precio total</Typography>
+                        <Typography variant='body1'>
                           {getPrecioTotal(co)} €
                         </Typography>
                       </Grid>

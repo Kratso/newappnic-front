@@ -1,18 +1,18 @@
-import { Card, CardContent, Container, Grid, Typography } from "@mui/material";
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Card, CardContent, Container, Grid, Typography } from '@mui/material';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import {
   getPrecioPerCapita,
   getPrecioPerDiem,
   getPrecioPerDiemPerCapita,
   getPrecioTotal,
-} from "../../helpers/getViajeTotals";
-import conceptosService from "../../services/concepto.service";
-import { selectAccessToken } from "../../slices/login.slice";
-import { selectViajeById, Viaje } from "../../slices/viajes.slice";
-import { RootState } from "../../store/store";
-import ConceptoCard from "./components/ConceptoCard/ConceptoCard";
+} from '../../helpers/getViajeTotals';
+import conceptosService from '../../services/concepto.service';
+import { selectAccessToken } from '../../slices/login.slice';
+import { selectViajeById, Viaje } from '../../slices/viajes.slice';
+import { RootState } from '../../store/store';
+import ConceptoCard from './components/ConceptoCard/ConceptoCard';
 
 const ViajeDetail = () => {
   const { _id } = useParams();
@@ -20,15 +20,15 @@ const ViajeDetail = () => {
     selectAccessToken(state)
   );
   const viaje = useSelector((state: RootState) =>
-    selectViajeById(state, _id ?? "")
+    selectViajeById(state, _id ?? '')
   );
   const [conceptos, setConceptos] = React.useState<any[]>([]);
   const [conceptosPorDivisa, setConceptosPorDivisa] = React.useState<any[]>([]);
 
   const fetchConceptos = async () => {
     const response = await conceptosService.fetchConceptosFromId(
-      _id ?? "",
-      access_token ?? ""
+      _id ?? '',
+      access_token ?? ''
     );
     setConceptos(response.conceptos);
   };
@@ -59,7 +59,7 @@ const ViajeDetail = () => {
         <Grid>
           <h1
             style={{
-              color: "var(--color-text)",
+              color: 'var(--color-text)',
             }}
           >
             {viaje?.destino}
@@ -67,49 +67,49 @@ const ViajeDetail = () => {
           <Grid>
             <Card
               sx={{
-                backgroundColor: "var(--color-bg-header-card)",
-                color: "var(--color-text)",
+                backgroundColor: 'var(--color-bg-header-card)',
+                color: 'var(--color-text)',
               }}
             >
               <CardContent>
                 <Grid container spacing={2}>
                   <Grid item xs={6}>
-                    <Typography variant="h6">Fecha de salida</Typography>
-                    <Typography variant="body1">
-                      {new Date(viaje?.start_date ?? "").toLocaleDateString()}
+                    <Typography variant='h6'>Fecha de salida</Typography>
+                    <Typography variant='body1'>
+                      {new Date(viaje?.start_date ?? '').toLocaleDateString()}
                     </Typography>
                   </Grid>
                   <Grid item xs={6}>
-                    <Typography variant="h6">Fecha de regreso</Typography>
-                    <Typography variant="body1">
-                      {new Date(viaje?.end_date ?? "").toLocaleDateString()}
+                    <Typography variant='h6'>Fecha de regreso</Typography>
+                    <Typography variant='body1'>
+                      {new Date(viaje?.end_date ?? '').toLocaleDateString()}
                     </Typography>
                   </Grid>
                 </Grid>
                 <Grid container spacing={2}>
                   <Grid item xs={6}>
-                    <Typography variant="h6">Número de personas</Typography>
-                    <Typography variant="body1">
+                    <Typography variant='h6'>Número de personas</Typography>
+                    <Typography variant='body1'>
                       {viaje?.participantes.length}
                     </Typography>
                   </Grid>
                   <Grid item xs={6}>
-                    <Typography variant="h6">Número de días</Typography>
-                    <Typography variant="body1">
-                      {Math.round((new Date(viaje?.end_date ?? "").getTime() -
-                        new Date(viaje?.start_date ?? "").getTime()) /
+                    <Typography variant='h6'>Número de días</Typography>
+                    <Typography variant='body1'>
+                      {Math.round((new Date(viaje?.end_date ?? '').getTime() -
+                        new Date(viaje?.start_date ?? '').getTime()) /
                         (1000 * 3600 * 24))}
                     </Typography>
                   </Grid>
                 </Grid>
                 <Grid container spacing={2}>
                   <Grid item xs={6}>
-                    <Typography variant="h6">Coste Total</Typography>
+                    <Typography variant='h6'>Coste Total</Typography>
 
                     {Object.entries(conceptosPorDivisa).map(
                       ([divisa, conceptos]) => {
                         return (
-                          <Typography variant="body1">
+                          <Typography variant='body1'>
                             {getPrecioTotal(conceptos)} {divisa}
                           </Typography>
                         );
@@ -117,11 +117,11 @@ const ViajeDetail = () => {
                     )}
                   </Grid>
                   <Grid item xs={6}>
-                    <Typography variant="h6">Coste medio por persona</Typography>
+                    <Typography variant='h6'>Coste medio por persona</Typography>
                     {Object.entries(conceptosPorDivisa).map(
                       ([divisa, conceptos]) => {
                         return (
-                          <Typography variant="body1">
+                          <Typography variant='body1'>
                             {getPrecioPerCapita(conceptos, viaje?.participantes.length)} {divisa}
                           </Typography>
                         );
@@ -129,12 +129,12 @@ const ViajeDetail = () => {
                     )}
                   </Grid>
                   <Grid item xs={6}>
-                    <Typography variant="h6">Coste por día</Typography>
+                    <Typography variant='h6'>Coste por día</Typography>
                     {Object.entries(conceptosPorDivisa).map(
                       ([divisa, conceptos]) => {
                         return (
-                          <Typography variant="body1">
-                            {getPrecioPerDiem(viaje as Viaje, conceptos)}{" "}
+                          <Typography variant='body1'>
+                            {getPrecioPerDiem(viaje as Viaje, conceptos)}{' '}
                             {divisa}
                           </Typography>
                         );
@@ -142,17 +142,17 @@ const ViajeDetail = () => {
                     )}
                   </Grid>
                   <Grid item xs={6}>
-                    <Typography variant="h6">
+                    <Typography variant='h6'>
                       Coste por persona y día
                     </Typography>
                     {Object.entries(conceptosPorDivisa).map(
                       ([divisa, conceptos]) => {
                         return (
-                          <Typography variant="body1">
+                          <Typography variant='body1'>
                             {getPrecioPerDiemPerCapita(
                               viaje as Viaje,
                               conceptos
-                            )}{" "}
+                            )}{' '}
                             {divisa}
                           </Typography>
                         );
@@ -167,8 +167,8 @@ const ViajeDetail = () => {
             spacing={1}
             container
             sx={{
-              display: "grid",
-              gridTemplateColumns: "repeat(2, 1fr)",
+              display: 'grid',
+              gridTemplateColumns: 'repeat(2, 1fr)',
             }}
           >
             {conceptos.map((concepto, i) => {

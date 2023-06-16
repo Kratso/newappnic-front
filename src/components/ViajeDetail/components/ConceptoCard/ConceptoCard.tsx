@@ -8,13 +8,13 @@ import {
   CardHeader,
   Grid,
   Typography,
-} from "@mui/material";
-import React from "react";
-import { useSelector } from "react-redux";
-import { Concepto } from "../../../../slices/concepto.slice";
-import { selectUser } from "../../../../slices/login.slice";
-import ConceptoForm from "../../../ConceptoForm/ConceptoForm";
-import FormDialog from "../../../FormDialog/FormDialog";
+} from '@mui/material';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { Concepto } from '../../../../slices/concepto.slice';
+import { selectUser } from '../../../../slices/login.slice';
+import ConceptoForm from '../../../ConceptoForm/ConceptoForm';
+import FormDialog from '../../../FormDialog/FormDialog';
 
 const ConceptoCard = ({
   concepto,
@@ -43,61 +43,61 @@ const ConceptoCard = ({
   return (
     <Card
       sx={{
-        width: "100%",
+        width: '100%',
         maxWidth: 500,
         margin: 2,
-        backgroundColor: "var(--color-bg-card)",
+        backgroundColor: 'var(--color-bg-card)',
       }}
     >
       <CardHeader title={concepto.titulo} />
       <CardContent>
         <Grid container spacing={2}>
           <Grid item xs={6}>
-            <Typography variant="body2">Fecha</Typography>
-            <Typography variant="body1">
-              {new Date(concepto.fecha.toString()).toLocaleDateString("es-ES")}
+            <Typography variant='body2'>Fecha</Typography>
+            <Typography variant='body1'>
+              {new Date(concepto.fecha.toString()).toLocaleDateString('es-ES')}
             </Typography>
           </Grid>
           <Grid item xs={6}>
-            <Typography variant="body2">Pagador</Typography>
-            <Typography variant="body1">
+            <Typography variant='body2'>Pagador</Typography>
+            <Typography variant='body1'>
               💰 {(concepto.pagador as any).name} 💰
             </Typography>
           </Grid>
           <Grid item xs={6}>
-            <Typography variant="body2">Concepto</Typography>
-            <Typography variant="body1">
+            <Typography variant='body2'>Concepto</Typography>
+            <Typography variant='body1'>
               {concepto.categoria}
             </Typography>
           </Grid>
           <Grid item xs={6}>
-            <Typography variant="body2">Unidades</Typography>
-            <Typography variant="body1">{concepto.unidades}</Typography>
+            <Typography variant='body2'>Unidades</Typography>
+            <Typography variant='body1'>{concepto.unidades}</Typography>
           </Grid>
           <Grid item xs={6}>
-            <Typography variant="body2">Precio por unidad</Typography>
-            <Typography variant="body1">
+            <Typography variant='body2'>Precio por unidad</Typography>
+            <Typography variant='body1'>
               {concepto.precio.toFixed(2)} {concepto.divisa}
             </Typography>
           </Grid>
           <Grid item xs={6}>
-            <Typography variant="body2">Participantes</Typography>
+            <Typography variant='body2'>Participantes</Typography>
             {concepto.participantes.map((participante, i) => {
               return (
-                <Typography key={i} variant="body1">
+                <Typography key={i} variant='body1'>
                   {(participante as any).pagado ||
                   (participante as any).usuario._id ===
                     (concepto.pagador as any)._id
-                    ? "❤️"
-                    : "💸"}{" "}
+                    ? '❤️'
+                    : '💸'}{' '}
                   {(participante as any).usuario.name}
                 </Typography>
               );
             })}
           </Grid>
           <Grid item xs={6}>
-            <Typography variant="body2">Precio por persona</Typography>
-            <Typography variant="body1">
+            <Typography variant='body2'>Precio por persona</Typography>
+            <Typography variant='body1'>
               {(
                 (concepto.precio * concepto.unidades) /
                 concepto.participantes.length
@@ -105,18 +105,18 @@ const ConceptoCard = ({
             </Typography>
           </Grid>
           <Grid item xs={6}>
-            <Typography variant="body2">Precio total</Typography>
-            <Typography variant="body1">
+            <Typography variant='body2'>Precio total</Typography>
+            <Typography variant='body1'>
               {(concepto.precio * concepto.unidades).toFixed(2)} {concepto.divisa}
             </Typography>
           </Grid>
         </Grid>
         <CardActions>
-          {(user.user?.role === "admin" ||
+          {(user.user?.role === 'admin' ||
             concepto.pagador === user.user?._id) && (
             <FormDialog
-              buttonText="Actualizar"
-              title="Actualizar Concepto"
+              buttonText='Actualizar'
+              title='Actualizar Concepto'
               open={open}
               handleClose={handleClickClose}
               handleClickOpen={handleClickOpen}
