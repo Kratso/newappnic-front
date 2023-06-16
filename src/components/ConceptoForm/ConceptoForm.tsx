@@ -34,7 +34,7 @@ const ConceptoForm = ({
   propsPrecio = 0,
   propsViaje = "",
   propsChecked = [],
-  propsDivisa= "",
+  propsDivisa = "",
   _id = "",
   propsCategoria = "",
   propsParticipantes = [],
@@ -60,12 +60,12 @@ const ConceptoForm = ({
   const [unidades, setUnidades] = React.useState(propsUnidad);
   const [precio, setPrecio] = React.useState(propsPrecio);
   const [viaje, setViaje] = React.useState(propsViaje);
-  const [participantes, setParticipantes] = React.useState<[]>(propsParticipantes as any);
+  const [participantes, setParticipantes] = React.useState<[]>(
+    propsParticipantes as any
+  );
   const [checked, setChecked] = React.useState<any[]>(propsChecked);
   const [categoria, setCategoria] = React.useState(propsCategoria);
   const [divisa, setDivisa] = React.useState(propsDivisa);
-
-  console.log("AAAAAAAA", isUpdate, participantes)
 
   const handleCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
     let updatedList: any[] = [...checked];
@@ -93,7 +93,11 @@ const ConceptoForm = ({
 
   useEffect(() => {
     const selectedViaje = viajes.filter((v) => v._id === viaje)[0];
-    setParticipantes(isUpdate ? propsParticipantes : (selectedViaje?.participantes as any) ?? []);
+    setParticipantes(
+      isUpdate
+        ? propsParticipantes
+        : (selectedViaje?.participantes as any) ?? []
+    );
     setSelectedViaje(selectedViaje ?? { participantes: [] });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [viaje]);
@@ -132,9 +136,17 @@ const ConceptoForm = ({
             .map((usuario: any) => ({ usuario, pagado: false })),
     };
     isUpdate
-      ? dispatch(updateConcepto({ concepto: (concepto as any), access_token: access_token ?? "" }))
+      ? dispatch(
+          updateConcepto({
+            concepto: concepto as any,
+            access_token: access_token ?? "",
+          })
+        )
       : dispatch(
-          createConcepto({ concepto: (concepto as any), access_token: access_token ?? "" })
+          createConcepto({
+            concepto: concepto as any,
+            access_token: access_token ?? "",
+          })
         );
 
     resetForm();
@@ -238,11 +250,16 @@ const ConceptoForm = ({
                 </Select>
               </FormControl>
               <FormControl>
+                <InputLabel id="categoria-label">Categoria</InputLabel>
                 <Select
                   labelId="categoria-label"
                   label="Categoria"
                   value={categoria}
                   onChange={(e) => setCategoria(e.target.value as string)}
+                  sx={{
+                    width: "100%",
+                    minWidth: "12rem",
+                  }}
                 >
                   <MenuItem value=""></MenuItem>
                   {["", "comida", "transporte", "alojamiento", "otros"].map(
@@ -255,11 +272,16 @@ const ConceptoForm = ({
                 </Select>
               </FormControl>
               <FormControl>
+                <InputLabel id="divisa-label">Divisa</InputLabel>
                 <Select
                   labelId="divisa-label"
                   label="Divisa"
                   value={divisa}
                   onChange={(e) => setDivisa(e.target.value as string)}
+                  sx={{
+                    width: "100%",
+                    minWidth: "12rem",
+                  }}
                 >
                   <MenuItem value=""></MenuItem>
                   {Divisas.map((divisa) => (
@@ -322,7 +344,10 @@ const ConceptoForm = ({
               <FormControl component="fieldset" variant="standard">
                 <FormLabel component="legend">Participantes</FormLabel>
                 <FormGroup>
-                  {(isUpdate ? propsParticipantes : selectedViaje.participantes)?.map((_: any) => {
+                  {(isUpdate
+                    ? propsParticipantes
+                    : selectedViaje.participantes
+                  )?.map((_: any) => {
                     return (
                       <FormControlLabel
                         control={
