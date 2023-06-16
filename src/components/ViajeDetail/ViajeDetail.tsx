@@ -91,9 +91,9 @@ const ViajeDetail = () => {
                   <Grid item xs={6}>
                     <Typography variant="h6">Número de días</Typography>
                     <Typography variant="body1">
-                      {(new Date(viaje?.end_date ?? "").getTime() -
+                      {Math.round((new Date(viaje?.end_date ?? "").getTime() -
                         new Date(viaje?.start_date ?? "").getTime()) /
-                        (1000 * 3600 * 24)}
+                        (1000 * 3600 * 24))}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -112,12 +112,12 @@ const ViajeDetail = () => {
                     )}
                   </Grid>
                   <Grid item xs={6}>
-                    <Typography variant="h6">Coste por persona</Typography>
+                    <Typography variant="h6">Coste medio por persona</Typography>
                     {Object.entries(conceptosPorDivisa).map(
                       ([divisa, conceptos]) => {
                         return (
                           <Typography variant="body1">
-                            {getPrecioPerCapita(conceptos)} {divisa}
+                            {getPrecioPerCapita(conceptos, viaje?.participantes.length)} {divisa}
                           </Typography>
                         );
                       }
