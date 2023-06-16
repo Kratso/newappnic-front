@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.7](https://github.com/Kratso/newappnic-front/compare/v0.1.6...v0.1.7) (2023-06-16)
+
+
+### Features
+
+* 🎸 added divisa to conceptos ([eca2148](https://github.com/Kratso/newappnic-front/commit/eca2148a41d4eb99f9c10a2f492a36c30f7b413d))
+* 🎸 added frontpage protection ([2dcb774](https://github.com/Kratso/newappnic-front/commit/2dcb7740f03942b01b661abd5ae7b9375de86616))
+
 ### [0.1.6](https://github.com/Kratso/newappnic-front/compare/v0.1.5...v0.1.6) (2023-03-15)
 
 
