@@ -1,1 +1,7 @@
-export const BASE_URL = "http://79.116.14.130:9955";
+export const BASE_URL = "http://localhost:9955";
+
+export const Divisas = [
+    "EUR",
+    "USD",
+    "JPY",
+];

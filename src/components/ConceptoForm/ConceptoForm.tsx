@@ -23,6 +23,7 @@ import { selectAllViajes } from "../../slices/viajes.slice";
 import { AppDispatch, RootState } from "../../store/store";
 import { selectAccessToken, selectUser, User } from "../../slices/login.slice";
 import { createConcepto, updateConcepto } from "../../slices/concepto.slice";
+import { Divisas } from "../../constants";
 
 const ConceptoForm = ({
   isUpdate = false,
@@ -33,6 +34,7 @@ const ConceptoForm = ({
   propsPrecio = 0,
   propsViaje = "",
   propsChecked = [],
+  propsDivisa= "",
   _id = "",
   propsCategoria = "",
   propsParticipantes = [],
@@ -61,6 +63,7 @@ const ConceptoForm = ({
   const [participantes, setParticipantes] = React.useState<[]>(propsParticipantes as any);
   const [checked, setChecked] = React.useState<any[]>(propsChecked);
   const [categoria, setCategoria] = React.useState(propsCategoria);
+  const [divisa, setDivisa] = React.useState(propsDivisa);
 
   console.log("AAAAAAAA", isUpdate, participantes)
 
@@ -118,6 +121,7 @@ const ConceptoForm = ({
       precio,
       viaje,
       categoria,
+      divisa,
       participantes: isUpdate
         ? participantes.map((p: any) => ({
             usuario: p,
@@ -251,6 +255,21 @@ const ConceptoForm = ({
                 </Select>
               </FormControl>
               <FormControl>
+                <Select
+                  labelId="divisa-label"
+                  label="Divisa"
+                  value={divisa}
+                  onChange={(e) => setDivisa(e.target.value as string)}
+                >
+                  <MenuItem value=""></MenuItem>
+                  {Divisas.map((divisa) => (
+                    <MenuItem key={divisa} value={divisa}>
+                      {divisa}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <FormControl>
                 <InputLabel id="pagador-label">Pagador</InputLabel>
                 <Select
                   labelId="pagador-label"
@@ -292,7 +311,7 @@ const ConceptoForm = ({
                   variant="standard"
                   onChange={(e) => setPrecio(Number(e.target.value))}
                   InputProps={{
-                    startAdornment: <span>€</span>,
+                    startAdornment: <span>{divisa}</span>,
                   }}
                   sx={{
                     width: "100%",

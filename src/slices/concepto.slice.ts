@@ -15,6 +15,7 @@ export type Concepto = {
     precio: number,
     viaje: string | Viaje,
     categoria?: '' | 'comida' | 'transporte' | 'alojamiento' | 'otros',
+    divisa?: string,
 }
 
 export interface ConceptoStatus {

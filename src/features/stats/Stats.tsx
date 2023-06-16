@@ -34,6 +34,8 @@ const Stats = () => {
 
   const [conceptos, setConceptos] = React.useState<any[]>([]);
 
+  const [conceptosPorDivisa, setConceptosPorDivisa] = React.useState<any[]>([]);
+
   const fetchConceptos = async () => {
     let response;
 
@@ -45,13 +47,26 @@ const Stats = () => {
     setConceptos(response ? response.conceptos : []);
   };
 
-  const viajeObject = viajes.find((viaje) => viaje._id === selectedViaje);
-  console.log(viajeObject?.contable._id === user?.user?._id, viajeObject?.contable._id, user?.user?._id);
-
   useEffect(() => {
     fetchConceptos();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [access_token, selectedViaje]);
+  
+  useEffect(() => {
+    if (conceptos.length > 0) {
+      const conceptosPorDivisa = conceptos.reduce((acc: any, concepto: any) => {
+        const divisa = concepto.divisa;
+        if (acc[divisa]) {
+          acc[divisa] = [...acc[divisa], concepto];
+        } else {
+          acc[divisa] = [concepto];
+        }
+        return acc;
+      }, {});
+      setConceptosPorDivisa(conceptosPorDivisa);
+    }
+  }, [conceptos]);
+
 
   return (
     <>
@@ -91,10 +106,12 @@ const Stats = () => {
                 <Grid item xs={12}>
                   <Grid item xs={12}>
                     <Typography variant="h6">Total a Deber</Typography>
+                    {Object.entries(conceptosPorDivisa).map((divisa) => (
                     <Typography variant="body1">
-                      {getAmountOwed(conceptos, user?.user as User, selectedViaje?.contable?._id === user?.user?._id).toFixed(2)}{" "}
-                      €
+                      {getAmountOwed(divisa[1], user?.user as User, selectedViaje?.contable?._id === user?.user?._id).toFixed(2)}{" "}
+                      {divisa[0]}
                     </Typography>
+                    ))}
                   </Grid>
                 </Grid>
               </CardContent>

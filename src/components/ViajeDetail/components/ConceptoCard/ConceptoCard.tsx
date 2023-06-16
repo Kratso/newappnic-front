@@ -76,7 +76,7 @@ const ConceptoCard = ({
           <Grid item xs={6}>
             <Typography variant="body2">Precio por unidad</Typography>
             <Typography variant="body1">
-              {concepto.precio.toFixed(2)} €
+              {concepto.precio.toFixed(2)} {concepto.divisa}
             </Typography>
           </Grid>
           <Grid item xs={6}>
@@ -100,14 +100,13 @@ const ConceptoCard = ({
               {(
                 (concepto.precio * concepto.unidades) /
                 concepto.participantes.length
-              ).toFixed(2)}{" "}
-              €
+              ).toFixed(2)} {concepto.divisa}
             </Typography>
           </Grid>
           <Grid item xs={6}>
             <Typography variant="body2">Precio total</Typography>
             <Typography variant="body1">
-              {(concepto.precio * concepto.unidades).toFixed(2)} €
+              {(concepto.precio * concepto.unidades).toFixed(2)} {concepto.divisa}
             </Typography>
           </Grid>
         </Grid>

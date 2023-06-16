@@ -23,6 +23,7 @@ const ViajeDetail = () => {
     selectViajeById(state, _id ?? "")
   );
   const [conceptos, setConceptos] = React.useState<any[]>([]);
+  const [conceptosPorDivisa, setConceptosPorDivisa] = React.useState<any[]>([]);
 
   const fetchConceptos = async () => {
     const response = await conceptosService.fetchConceptosFromId(
@@ -36,6 +37,21 @@ const ViajeDetail = () => {
     fetchConceptos();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [access_token, _id]);
+
+  useEffect(() => {
+    if (conceptos.length > 0) {
+      const conceptosPorDivisa = conceptos.reduce((acc: any, concepto: any) => {
+        const divisa = concepto.divisa;
+        if (acc[divisa]) {
+          acc[divisa] = [...acc[divisa], concepto];
+        } else {
+          acc[divisa] = [concepto];
+        }
+        return acc;
+      }, {});
+      setConceptosPorDivisa(conceptosPorDivisa);
+    }
+  }, [conceptos]);
 
   return (
     <>
@@ -84,29 +100,59 @@ const ViajeDetail = () => {
                 <Grid container spacing={2}>
                   <Grid item xs={6}>
                     <Typography variant="h6">Coste Total</Typography>
-                    <Typography variant="body1">
-                      {getPrecioTotal(conceptos)} €
-                    </Typography>
+
+                    {Object.entries(conceptosPorDivisa).map(
+                      ([divisa, conceptos]) => {
+                        return (
+                          <Typography variant="body1">
+                            {getPrecioTotal(conceptos)} {divisa}
+                          </Typography>
+                        );
+                      }
+                    )}
                   </Grid>
                   <Grid item xs={6}>
                     <Typography variant="h6">Coste por persona</Typography>
-                    <Typography variant="body1">
-                      {getPrecioPerCapita(conceptos)} €
-                    </Typography>
+                    {Object.entries(conceptosPorDivisa).map(
+                      ([divisa, conceptos]) => {
+                        return (
+                          <Typography variant="body1">
+                            {getPrecioPerCapita(conceptos)} {divisa}
+                          </Typography>
+                        );
+                      }
+                    )}
                   </Grid>
                   <Grid item xs={6}>
                     <Typography variant="h6">Coste por día</Typography>
-                    <Typography variant="body1">
-                      {getPrecioPerDiem(viaje as Viaje, conceptos)} €
-                    </Typography>
+                    {Object.entries(conceptosPorDivisa).map(
+                      ([divisa, conceptos]) => {
+                        return (
+                          <Typography variant="body1">
+                            {getPrecioPerDiem(viaje as Viaje, conceptos)}{" "}
+                            {divisa}
+                          </Typography>
+                        );
+                      }
+                    )}
                   </Grid>
                   <Grid item xs={6}>
                     <Typography variant="h6">
                       Coste por persona y día
                     </Typography>
-                    <Typography variant="body1">
-                      {getPrecioPerDiemPerCapita(viaje as Viaje, conceptos)} €
-                    </Typography>
+                    {Object.entries(conceptosPorDivisa).map(
+                      ([divisa, conceptos]) => {
+                        return (
+                          <Typography variant="body1">
+                            {getPrecioPerDiemPerCapita(
+                              viaje as Viaje,
+                              conceptos
+                            )}{" "}
+                            {divisa}
+                          </Typography>
+                        );
+                      }
+                    )}
                   </Grid>
                 </Grid>
               </CardContent>
@@ -118,9 +164,6 @@ const ViajeDetail = () => {
             sx={{
               display: "grid",
               gridTemplateColumns: "repeat(2, 1fr)",
-              ["@media (max-width: 1200px)"]: {
-                gridTemplateColumns: "repeat(1, 1fr)",
-              },
             }}
           >
             {conceptos.map((concepto, i) => {
