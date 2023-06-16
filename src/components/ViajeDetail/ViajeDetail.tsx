@@ -59,13 +59,18 @@ const ViajeDetail = () => {
         <Grid>
           <h1
             style={{
-              color: "rgba(255,211,232,0.8)",
+              color: "var(--color-text)",
             }}
           >
             {viaje?.destino}
           </h1>
           <Grid>
-            <Card>
+            <Card
+              sx={{
+                backgroundColor: "var(--color-bg-header-card)",
+                color: "var(--color-text)",
+              }}
+            >
               <CardContent>
                 <Grid container spacing={2}>
                   <Grid item xs={6}>

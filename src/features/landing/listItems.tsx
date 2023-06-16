@@ -4,9 +4,8 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import FlightIcon from "@mui/icons-material/Flight";
 import DescriptionIcon from "@mui/icons-material/Description";
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import BarChartIcon from "@mui/icons-material/BarChart";
-
 
 import { useNavigate } from "react-router-dom";
 
@@ -16,25 +15,41 @@ export const MainListItems: React.FC = () => {
     <React.Fragment>
       <ListItemButton onClick={() => navigate("/")}>
         <ListItemIcon>
-          <FlightIcon />
+          <FlightIcon
+            sx={{
+              color: "var(--color-primary)",
+            }}
+          />
         </ListItemIcon>
         <ListItemText primary="Viajes" />
       </ListItemButton>
       <ListItemButton onClick={() => navigate("/concepto")}>
         <ListItemIcon>
-          <DescriptionIcon />
+          <DescriptionIcon
+            sx={{
+              color: "var(--color-primary)",
+            }}
+          />
         </ListItemIcon>
         <ListItemText primary="Subir Concepto" />
       </ListItemButton>
       <ListItemButton onClick={() => navigate("/stats")}>
         <ListItemIcon>
-          <BarChartIcon />
+          <BarChartIcon
+            sx={{
+              color: "var(--color-primary)",
+            }}
+          />
         </ListItemIcon>
         <ListItemText primary="Ver Estadísticas" />
       </ListItemButton>
       <ListItemButton onClick={() => navigate("/perfil")}>
         <ListItemIcon>
-         <AccountBoxIcon />
+          <AccountBoxIcon
+            sx={{
+              color: "var(--color-primary)",
+            }}
+          />
         </ListItemIcon>
         <ListItemText primary="Perfil" />
       </ListItemButton>
@@ -42,7 +57,4 @@ export const MainListItems: React.FC = () => {
   );
 };
 
-export const secondaryListItems = (
-  <React.Fragment>
-  </React.Fragment>
-);
+export const secondaryListItems = <React.Fragment></React.Fragment>;

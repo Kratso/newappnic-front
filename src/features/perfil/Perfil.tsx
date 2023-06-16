@@ -12,7 +12,15 @@ const Perfil = () => {
         <Container>
             <Grid container spacing={3}>
                 <Grid item xs={12}>
-                    <Card>
+                    <Card
+                        sx={{
+                            height: "100%",
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "space-between",
+                            backgroundColor: 'var(--color-bg-header-card)',
+                        }}
+                    >
                         <CardHeader title="Perfil" />
                         <CardContent>
                             <Grid item xs={12}>

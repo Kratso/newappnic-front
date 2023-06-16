@@ -11,9 +11,9 @@ import { AppDispatch } from "../../store/store";
 import FormInput from "../../components/FormInput";
 import { register } from "../../slices/login.slice";
 import authService from "../../services/auth.service";
-import { LinkItem, mainColor, secondaryColor, borderRadius } from "../login/Login";
+import { LinkItem, mainColor, secondaryColor, borderRadius, textColor } from "../login/Login";
 
-import image from "./assets/image.gif";
+import image from "./assets/plane.png";
 
 
 // ? SignUp Schema with Zod
@@ -67,7 +67,7 @@ const SignupPage: FC = () => {
   return (
     <Container
       maxWidth={false}
-      sx={{ height: "100vh", backgroundColor: { xs: mainColor, md: secondaryColor } }}
+      sx={{ height: "100vh", backgroundColor: { xs: mainColor, md: secondaryColor }, color: textColor }}
     >
       <Grid
         container
@@ -179,6 +179,7 @@ const SignupPage: FC = () => {
                         mt: 2,
                         width: "80%",
                         marginInline: "auto",
+                        backgroundColor: 'var(--color-bg-header-card)'
                       }}
                     >
                       Sign Up

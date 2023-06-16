@@ -73,7 +73,7 @@ const Stats = () => {
       <Container>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <Typography variant="h1" style={{ color: "rgba(255,211,232,0.8)" }}>
+            <Typography variant="h1" style={{ color: 'var(--color-text)' }}>
               Estadísticas
             </Typography>
           </Grid>
@@ -85,6 +85,7 @@ const Stats = () => {
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
+                backgroundColor: "var(--color-bg-card)",
               }}
             >
               <CardHeader title="Deuda Específica Personal" />

@@ -168,7 +168,7 @@ const ConceptoForm = ({
             gutterBottom
             component="div"
             sx={{
-              color: "rgba(255,211,232,0.8)",
+              color: "var(--color-text)",
             }}
           >
             {" "}
@@ -187,7 +187,7 @@ const ConceptoForm = ({
             borderRadius: "20px",
             margin: "auto",
             marginTop: "2rem",
-            backgroundColor: "rgba(255,211,232,0.8)",
+            backgroundColor: "var(--color-bg-card)",
             padding: "2rem",
           }}
         >
@@ -389,6 +389,7 @@ const ConceptoForm = ({
               position: "fixed",
               bottom: (theme) => theme.spacing(4),
               right: (theme) => theme.spacing(4),
+              backgroundColor: "var(--color-primary)",
             }}
             onClick={handleFormInput}
           >

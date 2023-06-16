@@ -32,7 +32,7 @@ export const ViajeItem: React.FC<IProps> = ({ viaje }) => {
   const navigate = useNavigate();
   const role = useSelector(selectUserRole);
   return (
-    <Card variant="outlined" sx={{ minWidth: 275 }}>
+    <Card variant="outlined" sx={{ minWidth: 275, backgroundColor: 'var(--color-bg-card)' }}>
       <CardHeader title={destino} />
       <CardContent>
         <Grid container spacing={2}>
@@ -48,7 +48,12 @@ export const ViajeItem: React.FC<IProps> = ({ viaje }) => {
             <Typography variant="h6" component="div">
               Fechas
             </Typography>
-            <div className="dates">
+            <div className="dates" style={{
+              padding: 4,
+              display: 'flex',
+              flexDirection: 'row',
+              gap: 4,
+            }}>
               <DateField label="fecha de incio" value={start_date} disabled />
               <DateField label="fecha de fin" value={end_date} disabled />
             </div>

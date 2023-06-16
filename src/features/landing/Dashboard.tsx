@@ -17,6 +17,7 @@ import { MainListItems, secondaryListItems } from "./listItems";
 import {
   mainColor,
   secondaryColor,
+  textColor,
 } from "../login/Login";
 import { Route, Routes } from "react-router";
 import ViajesList from "../../components/ViajesList/ViajesList";
@@ -71,7 +72,7 @@ const Drawer = styled(MuiDrawer, {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
-    backgroundColor: mainColor,
+    backgroundColor: '#111b21',
     boxSizing: "border-box",
     ...(!open && {
       overflowX: "hidden",
@@ -87,7 +88,24 @@ const Drawer = styled(MuiDrawer, {
   },
 }));
 
-const mdTheme = createTheme();
+const mdTheme = createTheme({
+  palette: {
+    mode: 'dark',
+    primary: {
+      main: '#49b1d7',
+    },
+    secondary: {
+      main: '#f50057',
+    },
+    background: {
+      default: '#111b21',
+      paper: '#111b21',
+    },
+    text: {
+      primary: '#aebacc',
+    },
+  },
+});
 
 function DashboardContent() {
   const [open, setOpen] = React.useState(true);
@@ -103,6 +121,7 @@ function DashboardContent() {
           <Toolbar
             sx={{
               pr: "24px", // keep right padding when drawer closed
+              color: textColor,
             }}
           >
             <IconButton
@@ -128,12 +147,15 @@ function DashboardContent() {
             </Typography>
           </Toolbar>
         </AppBar>
-        <Drawer variant="permanent" open={open}>
+        <Drawer variant="permanent" open={open} sx={{
+          backgroundColor: '#111b21',
+        }}>
           <Toolbar
             sx={{
               display: "flex",
               alignItems: "center",
               justifyContent: "flex-end",
+              backgroundColor: '#202629',
               px: [1],
             }}
           >
@@ -151,10 +173,6 @@ function DashboardContent() {
         <Box
           component="main"
           sx={{
-            backgroundColor: (theme) =>
-              theme.palette.mode === "dark"
-                ? theme.palette.grey[100]
-                : theme.palette.grey[900],
             flexGrow: 1,
             height: "100vh",
             overflow: "auto",

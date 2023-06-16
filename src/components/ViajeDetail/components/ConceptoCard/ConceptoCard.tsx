@@ -46,6 +46,7 @@ const ConceptoCard = ({
         width: "100%",
         maxWidth: 500,
         margin: 2,
+        backgroundColor: "var(--color-bg-card)",
       }}
     >
       <CardHeader title={concepto.titulo} />

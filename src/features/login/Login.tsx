@@ -18,13 +18,13 @@ import { literal, object, string, TypeOf } from "zod";
 
 import FormInput from "../../components/FormInput";
 
-import image from "./assets/image.gif";
+import image from "./assets/plane.png";
 import { login } from "../../slices/login.slice";
 import authService from "../../services/auth.service";
 
-export const mainColor = "rgba(255,211,232,0.8)";
-export const secondaryColor = "#141414";
-export const textColor = "#001011";
+export const mainColor = "var(--color-bg-card)";
+export const secondaryColor = "#0a1014";
+export const textColor = "#e9edef";
 export const borderRadius = "60px";
 
 // ? Styled React Route Dom Link Component
@@ -173,7 +173,7 @@ const LoginPage: FC = () => {
                           sx={{
                             fontSize: "0.8rem",
                             fontWeight: 400,
-                            color: "#001011",
+                            color: textColor,
                           }}
                         >
                           Trust this device
@@ -190,6 +190,7 @@ const LoginPage: FC = () => {
                         mt: 2,
                         width: "80%",
                         marginInline: "auto",
+                        backgroundColor: 'var(--color-bg-header-card)'
                       }}
                     >
                       Login
@@ -217,7 +218,7 @@ const LoginPage: FC = () => {
                 </Grid>
               </Grid>
               <Grid container justifyContent="center">
-                <Stack sx={{ mt: "3rem", textAlign: "center" }}>
+                <Stack sx={{ mt: "3rem", textAlign: "center", color: textColor }}>
                   <Typography sx={{ fontSize: "0.9rem", mb: "1rem" }}>
                     Need an account?{" "}
                     <LinkItem to="/signup">Sign up here</LinkItem>
