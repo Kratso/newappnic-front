@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux/es/hooks/useSelector";
-import { selectUser, selectUserRole, User } from "../../slices/login.slice";
+import { selectUser, User } from "../../slices/login.slice";
 import { selectAllViajes } from "../../slices/viajes.slice";
 import { RootState } from "../../store/store";
 import { Container, Stack } from "@mui/system";
