@@ -6,6 +6,7 @@ import { Container, Stack } from "@mui/system";
 import { ViajeItem } from "./components/ViajeItem/ViajeItem";
 import ViajeFormDialog from "../ViajeForm/ViajeForm";
 import { useMemo } from "react";
+import { compareTripsByStartDate } from "../../helpers/tripDateComparatorSorter";
 
 const ViajesList = () => {
   const viajes = useSelector((state: RootState) => selectAllViajes(state));
@@ -19,14 +20,14 @@ const ViajesList = () => {
           (viaje.participantes as any).find(
             (participante: User) => participante._id === user.user?._id
           ) || userRole === "admin"
-      ),
+      ).sort(compareTripsByStartDate),
     [user.user?._id, userRole, viajes]
   );
 
   return (
     <Container>
       <Stack spacing={2}>
-        {viajesOfUser.map((viaje, i) => (
+        {viajesOfUser.sort(compareTripsByStartDate).map((viaje, i) => (
           <ViajeItem key={i} viaje={viaje} />
         ))}
       </Stack>
