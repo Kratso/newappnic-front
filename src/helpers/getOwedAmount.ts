@@ -20,7 +20,7 @@ export function getAmountOwed(conceptos: Concepto[], user: User, isContable: Boo
       if ((concepto.pagador as any)._id === user._id && !isContable) {
         const debtUsers = (concepto.participantes as any[]).reduce((acc, p) => p.pagado ? acc : ++acc, 0);
         // If the user is the pagador for this concepto, add the total cost to the amount owed
-        amountOwed -= concepto.precio * debtUsers;
+        amountOwed -= (concepto.precio * concepto.unidades) * debtUsers / concepto.participantes.length;
       }
     }
   
