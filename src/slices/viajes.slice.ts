@@ -57,7 +57,6 @@ const viajesSlice = createSlice({
     viajeUpdate(state, action) {
         const {_id, destino, conceptos, participantes, start_date, end_date, contable} = action.payload.viaje;
         const viaje = state.viajes.find(viaje => viaje._id === _id)
-        console.log(viaje)
         if(viaje) {
             viaje.destino = destino
             viaje.conceptos = conceptos;
@@ -116,12 +115,10 @@ export const fetchViajesMiddle = createAsyncThunk('viajes/fetchViajes', async (a
 
 export const createViajeMiddle = createAsyncThunk<Viaje[],{viaje:Viaje, access_token:string},{}>('viajes/createViaje', async ({viaje, access_token}) => {
     await viajesService.createViaje(viaje, access_token);
-    console.log("AAAAAA")
     return (await viajesService.fetchViajes(access_token)).data as Viaje[];
 })
 
 export const updateViajeMiddle = createAsyncThunk<void,{viaje:Viaje},{}>('viajes/updateViaje', async ({viaje}) => {
-  console.log(viaje)
 })
 
 export const deleteViajeMiddle = createAsyncThunk<void,{_id: string, access_token:string}, {} >('viajes/deleteViaje', async ({_id, access_token}) => {

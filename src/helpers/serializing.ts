@@ -1,7 +1,6 @@
 import { Viaje } from "../slices/viajes.slice";
 
 export function serializeViajes(viajes: Viaje[]) {
-    console.log(viajes)
   return viajes.map((viaje) => ({
     _id: viaje._id,
     start_date: viaje.start_date,
