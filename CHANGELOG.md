@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.9](https://github.com/Kratso/newappnic-front/compare/v0.1.8...v0.1.9) (2023-08-14)
+
+
+### Features
+
+* 🎸 added marcar como pagado and admin vis tool ([bbc22a4](https://github.com/Kratso/newappnic-front/commit/bbc22a4655ba635e2ef79238414985a56d515781))
+
+
+### Bug Fixes
+
+* 🐛 fixed owed calculation ([bd3c4ef](https://github.com/Kratso/newappnic-front/commit/bd3c4ef5916d9fc9b0bc2fb6f3c43ffa54d54d2d))
+
 ### [0.1.8](https://github.com/Kratso/newappnic-front/compare/v0.1.7...v0.1.8) (2023-06-16)
 
 
