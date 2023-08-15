@@ -49,7 +49,6 @@ const ConceptoCard = ({
   };
 
   const markAsPaid = () => {
-    console.log(concepto);
     dispatch(
       updateConcepto({
         concepto: {

@@ -67,25 +67,6 @@ const Stats = () => {
     }
   }, [conceptos]);
 
-  useEffect(() => {
-    if (user.user?.role === "admin") {
-      const viaje = viajes.find((viaje) => viaje._id === selectedViaje);
-      console.log(viaje?.destino);
-      (viaje?.participantes as User[])?.forEach((participante: User) => {
-        console.log(participante.name);
-        Object.entries(conceptosPorDivisa)?.forEach((divisa: any) => {
-          console.log(
-            getAmountOwed(
-              divisa[1],
-              participante,
-              selectedViaje?.contable?._id === participante?._id
-            ).toFixed(2), divisa[0]
-          );
-        });
-      });
-    }
-  }, [conceptosPorDivisa, selectedViaje, user.user?.role]);
-
   return (
     <>
       <Container>
@@ -140,6 +121,41 @@ const Stats = () => {
               </CardContent>
             </Card>
           </Grid>
+          {user?.user?.role === 'admin' && (<Grid item xs={12}>
+            <Card
+              sx={{
+                width: "fit-content",
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                backgroundColor: "var(--color-bg-card)",
+              }}
+            >
+              <CardHeader title="Deuda Por Participante" />
+              <CardContent>
+                <Grid item xs={12}>
+                  {
+                    (viajes?.find((viaje) => viaje._id === selectedViaje)?.participantes as User[])?.map((participante : User) => (
+                      <Grid item xs={12}>
+                        <Typography variant="h6">{participante.name}</Typography>
+                        {Object.entries(conceptosPorDivisa).map((divisa) => (
+                          <Typography variant="body1">
+                            {getAmountOwed(
+                              divisa[1],
+                              participante,
+                              selectedViaje?.contable?._id === participante?._id
+                            ).toFixed(2)}{" "}
+                            {divisa[0]}
+                          </Typography>
+                        ))}
+                      </Grid>
+                    ))
+                  }
+                </Grid>
+              </CardContent>
+            </Card>
+          </Grid>)}
           {/* <Grid item xs={12}>
             <Grid container spacing={3}>
               {viajes.map((viaje) => (
