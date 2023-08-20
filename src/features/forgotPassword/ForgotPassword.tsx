@@ -19,7 +19,7 @@ import { literal, object, string, TypeOf } from 'zod';
 import FormInput from '../../components/FormInput';
 
 import image from './assets/plane.png';
-import { login } from '../../slices/login.slice';
+import { forgotPassword } from '../../slices/login.slice';
 import authService from '../../services/auth.service';
 
 export const mainColor = 'var(--color-bg-card)';
@@ -38,38 +38,32 @@ export const LinkItem = styled(Link)`
 `;
 
 // ? Login Schema with Zod
-const loginSchema = object({
+const forgotPasswordSchema = object({
   email: string().min(1, 'Email is required').email('Email is invalid'),
-  password: string()
-    .min(1, 'Password is required')
-    .min(8, 'Password must be more than 8 characters')
-    .max(32, 'Password must be less than 32 characters'),
-  persistUser: literal(true).optional(),
 });
 
 // ? Infer the Schema to get the TS Type
-type ILogin = TypeOf<typeof loginSchema>;
+type IFPassword = TypeOf<typeof forgotPasswordSchema>;
 
-const LoginPage: FC = () => {
+const ForgotPassword: FC = () => {
   // ? Default Values
-  const defaultValues: ILogin = {
+  const defaultValues: IFPassword = {
     email: '',
-    password: '',
   };
 
   const dispatch = useDispatch();
 
   // ? The object returned from useForm Hook
-  const methods = useForm<ILogin>({
-    resolver: zodResolver(loginSchema),
+  const methods = useForm<IFPassword>({
+    resolver: zodResolver(forgotPasswordSchema),
     defaultValues,
   }); 
 
   // ? Submit Handler
-  const onSubmitHandler: SubmitHandler<ILogin> = async (values: ILogin) => {
-    const { email, password } = values;
+  const onSubmitHandler: SubmitHandler<IFPassword> = async (values: IFPassword) => {
+    const { email } = values;
 
-    dispatch(login(await authService.login(email, password)));
+    dispatch(forgotPassword(await authService.forgotPassword(email)));
   };
 
   // ? JSX to be rendered
@@ -140,7 +134,7 @@ const LoginPage: FC = () => {
                         color: textColor,
                       }}
                     >
-                      Log into your account
+                      Type in your email
                     </Typography>
 
                     <FormInput
@@ -149,36 +143,6 @@ const LoginPage: FC = () => {
                       name='email'
                       focused
                       required
-                    />
-                    <FormInput
-                      type='password'
-                      label='Password'
-                      name='password'
-                      required
-                      focused
-                    />
-
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          size='small'
-                          aria-label='trust this device checkbox'
-                          required
-                          {...methods.register('persistUser')}
-                        />
-                      }
-                      label={
-                        <Typography
-                          variant='body2'
-                          sx={{
-                            fontSize: '0.8rem',
-                            fontWeight: 400,
-                            color: textColor,
-                          }}
-                        >
-                          Trust this device
-                        </Typography>
-                      }
                     />
 
                     <LoadingButton
@@ -193,7 +157,7 @@ const LoginPage: FC = () => {
                         backgroundColor: 'var(--color-bg-header-card)'
                       }}
                     >
-                      Login
+                      Reset Password
                     </LoadingButton>
                   </Box>
                 </Grid>
@@ -224,8 +188,8 @@ const LoginPage: FC = () => {
                     <LinkItem to='/signup'>Sign up here</LinkItem>
                   </Typography>
                   <Typography sx={{ fontSize: '0.9rem' }}>
-                    Forgot your{' '}
-                    <LinkItem to='/forgot-password'>password?</LinkItem>
+                    Login
+                    <LinkItem to='/'>here</LinkItem>
                   </Typography>
                 </Stack>
               </Grid>
@@ -237,4 +201,4 @@ const LoginPage: FC = () => {
   );
 };
 
-export default LoginPage;
+export default ForgotPassword;

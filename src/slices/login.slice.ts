@@ -59,6 +59,8 @@ const userData = createSlice({
         state.user = user;
       }
     },
+    forgotPassword(state, action) {},
+    updatePassword(state, action) {},
   },
   extraReducers(builder) {
     builder
@@ -78,7 +80,7 @@ const userData = createSlice({
   },
 });
 
-export const { login, logout, register, setUser } = userData.actions;
+export const { login, logout, register, setUser, forgotPassword, updatePassword } = userData.actions;
 
 export default userData.reducer;
 
@@ -107,4 +109,20 @@ export const registerMiddle = createAsyncThunk<
 >("userData/register", async (authData) => {
   const { username, email, password, passwordConfirm, phone } = authData;
   return await AuthService.register(username, email, password, passwordConfirm, phone);
+});
+
+export const forgotPasswordMiddle = createAsyncThunk<
+  any,
+  { email: string }
+>("userData/forgotPassword", async (authData) => {
+  const { email } = authData;
+  return await AuthService.forgotPassword(email);
+});
+
+export const updatePasswordMiddle = createAsyncThunk<
+  any,
+  { email: string, password: string; passwordConfirm: string; token: string }
+>("userData/updatePassword", async (authData) => {
+  const { email, password, passwordConfirm, token } = authData;
+  return await AuthService.updatePassword(email, password, passwordConfirm, token);
 });

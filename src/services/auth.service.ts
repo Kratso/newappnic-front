@@ -53,6 +53,21 @@ class AuthService {
       phone,
     });
   }
+
+  async forgotPassword(email: string) {
+    return axios.post(AUTH_URL + "forgot-password", {
+      email,
+    });
+  }
+
+  async updatePassword(email: string, password: string, confirmPassword: string, token: string) {
+    return axios.patch(AUTH_URL + "reset-password/", {
+      email,
+      password,
+      passwordConfirm: confirmPassword,
+      token,
+    });
+  }
 }
 
 export default new AuthService();
