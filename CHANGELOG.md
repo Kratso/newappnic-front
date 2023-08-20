@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.10](https://github.com/Kratso/newappnic-front/compare/v0.1.9...v0.1.10) (2023-08-20)
+
+
+### Features
+
+* 🎸 added admin debt card ([fcef6ed](https://github.com/Kratso/newappnic-front/commit/fcef6ed51260bd23e4c36948c3313389abd6973e))
+* 🎸 added password recovery ([ac5bd0c](https://github.com/Kratso/newappnic-front/commit/ac5bd0cf46c7565dfab61c098fe0336f556eb414))
+
 ### [0.1.9](https://github.com/Kratso/newappnic-front/compare/v0.1.8...v0.1.9) (2023-08-14)
 
 
