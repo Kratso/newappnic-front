@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.11](https://github.com/Kratso/newappnic-front/compare/v0.1.10...v0.1.11) (2023-09-01)
+
+
+### Features
+
+* 🎸 added count down to travel ([0a6e1e2](https://github.com/Kratso/newappnic-front/commit/0a6e1e2dc821c5df210e1155f51fd7156dcff51b))
+* 🎸 added extra stats ([9349611](https://github.com/Kratso/newappnic-front/commit/93496115ef81f39c83b75b60fa5b6b611c02c026))
+
 ### [0.1.10](https://github.com/Kratso/newappnic-front/compare/v0.1.9...v0.1.10) (2023-08-20)
 
 
