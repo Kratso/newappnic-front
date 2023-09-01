@@ -102,7 +102,7 @@ const ViajeDetail = () => {
                     </Typography>
                   </Grid>
                 </Grid>
-                <Grid container spacing={2}>
+                <Grid container spacing={2} key="Coste Total">
                   <Grid item xs={6}>
                     <Typography variant='h6'>Coste Total</Typography>
 

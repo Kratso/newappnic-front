@@ -51,3 +51,20 @@ export const getPrecioPerDiemPerCapita = (
     }, 0)
     .toFixed(2);
 };
+
+export const getPrecioPerCategory = (conceptos: Concepto[]) => {
+  let categories: { [key: string]: {
+    [key: string]: number
+  } } = {};
+  conceptos.forEach((concepto) => {
+    if (categories[concepto.categoria as string]) {
+      categories[concepto.categoria as string][concepto.divisa as string] = (categories[concepto.categoria as string][concepto.divisa as string] || 0) + concepto.precio * concepto.unidades;
+    } else {
+      categories[concepto.categoria as string] = {
+        [concepto.divisa as string]: concepto.precio * concepto.unidades
+      }
+    }
+  });
+
+  return categories;
+};

@@ -2,11 +2,7 @@ import {
   Grid,
   Paper,
   Typography,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
+  Stack,
   Card,
   CardHeader,
   CardContent,
@@ -17,7 +13,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { getAmountOwed } from "../../helpers/getOwedAmount";
-import { getPrecioTotal } from "../../helpers/getViajeTotals";
+import { getPrecioPerCategory } from "../../helpers/getViajeTotals";
 import conceptosService from "../../services/concepto.service";
 import { selectAccessToken, selectUser, User } from "../../slices/login.slice";
 import { selectAllViajes } from "../../slices/viajes.slice";
@@ -36,6 +32,10 @@ const Stats = () => {
 
   const [conceptosPorDivisa, setConceptosPorDivisa] = React.useState<any[]>([]);
 
+  const [dias, setDias] = React.useState<number>(1);
+
+  const [participantes, setParticipantes] = React.useState<any[]>([]);
+
   const fetchConceptos = async () => {
     let response;
 
@@ -51,6 +51,19 @@ const Stats = () => {
     fetchConceptos();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [access_token, selectedViaje]);
+
+  useEffect(() => {
+    if (selectedViaje) {
+      const viaje = viajes.find((viaje) => viaje._id === selectedViaje);
+      setDias(
+        (new Date(viaje?.end_date as any).getTime() -
+          new Date(viaje?.start_date as any).getTime()) /
+          (60 * 60 * 24 * 1000)
+      );
+
+      setParticipantes(viaje?.participantes as any[]);
+    }
+  }, [selectedViaje]);
 
   useEffect(() => {
     if (conceptos.length > 0) {
@@ -76,69 +89,201 @@ const Stats = () => {
               Estadísticas
             </Typography>
           </Grid>
-          <Grid item xs={12}>
-            <Card
+          <Container>
+            <Stack
+              spacing={1}
               sx={{
-                width: "fit-content",
-                height: "100%",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                backgroundColor: "var(--color-bg-card)",
+                paddingLeft: "24px",
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+                gap: "1rem",
               }}
             >
-              <CardHeader title="Deuda Específica Personal" />
-              <CardContent>
-                <Grid item xs={12}>
-                  <Select
-                    native
-                    value={selectedViaje}
-                    onChange={(e) => setSelectedViaje(e.target.value)}
-                  >
-                    <option value={""}></option>
-                    {viajes.map((viaje) => (
-                      <option key={viaje._id} value={viaje._id}>
-                        {viaje.destino}
-                      </option>
-                    ))}
-                  </Select>
-                </Grid>
-                <Grid item xs={12}>
+              <Card
+                sx={{
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  backgroundColor: "var(--color-bg-card)",
+                }}
+              >
+                <CardHeader title="Deuda Específica Personal" />
+                <CardContent>
                   <Grid item xs={12}>
-                    <Typography variant="h6">Total a Deber</Typography>
-                    {Object.entries(conceptosPorDivisa).map((divisa) => (
-                      <Typography variant="body1">
-                        {getAmountOwed(
-                          divisa[1],
-                          user?.user as User,
-                          selectedViaje?.contable?._id === user?.user?._id
-                        ).toFixed(2)}{" "}
-                        {divisa[0]}
-                      </Typography>
-                    ))}
+                    <Select
+                      native
+                      value={selectedViaje}
+                      onChange={(e) => setSelectedViaje(e.target.value)}
+                    >
+                      <option value={""}></option>
+                      {viajes.map((viaje) => (
+                        <option key={viaje._id} value={viaje._id}>
+                          {viaje.destino}
+                        </option>
+                      ))}
+                    </Select>
                   </Grid>
-                </Grid>
-              </CardContent>
-            </Card>
-          </Grid>
-          {user?.user?.role === 'admin' && (<Grid item xs={12}>
-            <Card
-              sx={{
-                width: "fit-content",
-                height: "100%",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                backgroundColor: "var(--color-bg-card)",
-              }}
-            >
-              <CardHeader title="Deuda Por Participante" />
-              <CardContent>
-                <Grid item xs={12}>
-                  {
-                    (viajes?.find((viaje) => viaje._id === selectedViaje)?.participantes as User[])?.map((participante : User) => (
+                  <Grid item xs={12}>
+                    <Grid item xs={12}>
+                      <Typography variant="h6">Total a Deber</Typography>
+                      {Object.entries(conceptosPorDivisa).map((divisa) => (
+                        <Typography variant="body1">
+                          {getAmountOwed(
+                            divisa[1],
+                            user?.user as User,
+                            selectedViaje?.contable?._id === user?.user?._id
+                          ).toFixed(2)}{" "}
+                          {divisa[0]}
+                        </Typography>
+                      ))}
+                    </Grid>
+                  </Grid>
+                </CardContent>
+              </Card>
+              <Card
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  backgroundColor: "var(--color-bg-card)",
+                }}
+              >
+                <CardHeader title="Gastos Por Categoría" />
+                <CardContent>
+                  <Grid item xs={12}>
+                    {Object.entries(getPrecioPerCategory(conceptos)).map(
+                      (categoria) => {
+                        const valores = Object.entries(categoria[1]);
+                        return (
+                          <>
+                            <Typography variant="h6">{categoria[0]}</Typography>
+                            {valores.map((valor) => (
+                              <Typography variant="body1">
+                                {valor[1].toFixed(2)} {valor[0]}
+                              </Typography>
+                            ))}
+                          </>
+                        );
+                      }
+                    )}
+                  </Grid>
+                </CardContent>
+              </Card>
+              <Card
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  backgroundColor: "var(--color-bg-card)",
+                }}
+              >
+                <CardHeader title="Gastos Por Categoría Per Diem" />
+                <CardContent>
+                  <Grid item xs={12}>
+                    {Object.entries(getPrecioPerCategory(conceptos)).map(
+                      (categoria) => {
+                        const valores = Object.entries(categoria[1]);
+                        return (
+                          <>
+                            <Typography variant="h6">{categoria[0]}</Typography>
+                            {valores.map((valor) => (
+                              <Typography variant="body1">
+                                {(valor[1] / dias).toFixed(2)} {valor[0]}
+                              </Typography>
+                            ))}
+                          </>
+                        );
+                      }
+                    )}
+                  </Grid>
+                </CardContent>
+              </Card>
+              <Card
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  backgroundColor: "var(--color-bg-card)",
+                }}
+              >
+                <CardHeader title="Gastos Por Categoría Por Participante" />
+                <CardContent>
+                  <Grid item xs={12}>
+                    {Object.entries(getPrecioPerCategory(conceptos)).map(
+                      (categoria) => {
+                        const valores = Object.entries(categoria[1]);
+                        return (
+                          <>
+                            <Typography variant="h6">{categoria[0]}</Typography>
+                            {valores.map((valor) => (
+                              <Typography variant="body1">
+                                {(valor[1] / participantes.length).toFixed(2)}{" "}
+                                {valor[0]}
+                              </Typography>
+                            ))}
+                          </>
+                        );
+                      }
+                    )}
+                  </Grid>
+                </CardContent>
+              </Card>
+              <Card
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  backgroundColor: "var(--color-bg-card)",
+                }}
+              >
+                <CardHeader title="Gastos Por Categoría Por Participante Per Diem" />
+                <CardContent>
+                  <Grid item xs={12}>
+                    {Object.entries(getPrecioPerCategory(conceptos)).map(
+                      (categoria) => {
+                        const valores = Object.entries(categoria[1]);
+                        return (
+                          <>
+                            <Typography variant="h6">{categoria[0]}</Typography>
+                            {valores.map((valor) => (
+                              <Typography variant="body1">
+                                {(valor[1] / (participantes.length * dias)).toFixed(2)}{" "}
+                                {valor[0]}
+                              </Typography>
+                            ))}
+                          </>
+                        );
+                      }
+                    )}
+                  </Grid>
+                </CardContent>
+              </Card>
+            </Stack>
+          </Container>
+          {user?.user?.role === "admin" && (
+            <Grid item xs={12}>
+              <Card
+                sx={{
+                  width: "fit-content",
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  backgroundColor: "var(--color-bg-card)",
+                }}
+              >
+                <CardHeader title="Deuda Por Participante" />
+                <CardContent key="admin-panel">
+                  <Grid item xs={12}>
+                    {(
+                      viajes?.find((viaje) => viaje._id === selectedViaje)
+                        ?.participantes as User[]
+                    )?.map((participante: User) => (
                       <Grid item xs={12}>
-                        <Typography variant="h6">{participante.name}</Typography>
+                        <Typography variant="h6">
+                          {participante.name}
+                        </Typography>
                         {Object.entries(conceptosPorDivisa).map((divisa) => (
                           <Typography variant="body1">
                             {getAmountOwed(
@@ -150,12 +295,12 @@ const Stats = () => {
                           </Typography>
                         ))}
                       </Grid>
-                    ))
-                  }
-                </Grid>
-              </CardContent>
-            </Card>
-          </Grid>)}
+                    ))}
+                  </Grid>
+                </CardContent>
+              </Card>
+            </Grid>
+          )}
           {/* <Grid item xs={12}>
             <Grid container spacing={3}>
               {viajes.map((viaje) => (
@@ -198,3 +343,6 @@ const Stats = () => {
 };
 
 export default Stats;
+function getTotalesPorCategoria(conceptos: any[]): any {
+  throw new Error("Function not implemented.");
+}
