@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.12](https://github.com/Kratso/newappnic-front/compare/v0.1.11...v0.1.12) (2023-09-13)
+
+
+### Features
+
+* 🎸 added metadata ([656db64](https://github.com/Kratso/newappnic-front/commit/656db64f5f74f65df34b7eab7fa6046cfa80851c))
+
+
+### Bug Fixes
+
+* 🐛 fixed pagador calc ([3fdde30](https://github.com/Kratso/newappnic-front/commit/3fdde306fcb43aedcf6ba67055a006e4102901dc))
+
 ### [0.1.11](https://github.com/Kratso/newappnic-front/compare/v0.1.10...v0.1.11) (2023-09-01)
 
 
