@@ -107,9 +107,7 @@ const ConceptoCard = ({
             {concepto.participantes.map((participante, i) => {
               return (
                 <Typography key={i} variant="body1">
-                  {(participante as any).pagado ||
-                  (participante as any).usuario._id ===
-                    (concepto.pagador as any)._id
+                  {(participante as any).pagado
                     ? "❤️"
                     : "💸"}{" "}
                   {(participante as any).usuario.name}
