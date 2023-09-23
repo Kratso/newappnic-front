@@ -14,6 +14,11 @@ export interface Viaje {
   conceptos: Concepto[],
   participantes: string[] | User[],
   contable: User,
+  timers?: [{
+    name: string,
+    start_date: Date,
+    end_date: Date,
+  }],
 }
 
 export interface ViajeStatus {

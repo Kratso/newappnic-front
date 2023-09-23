@@ -29,6 +29,7 @@ export const ViajeItem: React.FC<IProps> = ({ viaje }) => {
     participantes,
     conceptos,
     contable,
+    timers,
   } = viaje;
   const navigate = useNavigate();
   const role = useSelector(selectUserRole);
@@ -66,7 +67,23 @@ export const ViajeItem: React.FC<IProps> = ({ viaje }) => {
             </div>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <CountDown endDate={end_date} startDate={start_date} />
+            {timers ? (
+              timers.map(({ name, start_date, end_date }, i) => {
+                return (
+                  <div
+                    style={{ display: "flex", flexDirection: "column", gap: 4 }}
+                    key={`timer-${_id}-${i}`}
+                  >
+                    <Typography variant="h6" component="div">
+                      {name}
+                    </Typography>
+                    <CountDown endDate={end_date} startDate={start_date} />
+                  </div>
+                );
+              })
+            ) : (
+              <CountDown endDate={end_date} startDate={start_date} />
+            )}
           </Grid>
           <Grid item xs={12} sm={6}>
             <Typography sx={{ mb: 1.5 }} color="text.secondary">

@@ -11,7 +11,6 @@ import { compareTripsByStartDate } from '../../helpers/tripDateComparatorSorter'
 const ViajesList = () => {
   const viajes = useSelector((state: RootState) => selectAllViajes(state));
   const user = useSelector((state: RootState) => selectUser(state));
-
   const userRole = useMemo(() => user.user?.role, [user]);
   const viajesOfUser = useMemo(
     () =>
